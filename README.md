@@ -7,11 +7,13 @@ Run the memory-target application:
 
 ```bash
 python scripts/run_monetary_lp_memory_targets.py \
-  --targets diagonal_old hac_filtered volterra_nonlinear \
+  --targets diagonal_old hac_filtered hilbert_volterra \
   --hac-lags 12 \
-  --volterra-rank 5 \
-  --volterra-level 2 \
-  --volterra-half-lives 3 12 36 \
+  --memory-half-lives 3 12 36 \
+  --signature-gamma 0.05 \
+  --base-inner reference_soft \
+  --feature-bandwidth median \
+  --strict-past \
   --bootstrap-draws 0 \
   --output-dir outputs/monetary_lp_memory_targets
 ```

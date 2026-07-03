@@ -7,6 +7,7 @@ import importlib.metadata
 import json
 import os
 import sys
+import warnings
 from pathlib import Path
 from typing import Any, Callable
 
@@ -28,13 +29,16 @@ import numpy as np
 import pandas as pd
 
 import run_publication_grade_ovk as pub
+from hilbert_volterra import (
+    HilbertVolterraKernelConfig,
+    make_hilbert_volterra_target,
+)
 from time_series_targets import (
     TargetResult,
     check_psd_symmetric,
     effective_support,
     make_diagonal_old_target,
     make_hac_filtered_target,
-    make_volterra_nonlinear_target,
     relative_geometry_from_target,
 )
 
@@ -42,12 +46,12 @@ from time_series_targets import (
 TARGET_LABELS = {
     "diagonal_old": "Old diagonal",
     "hac_filtered": "HAC filtered",
-    "volterra_nonlinear": "Volterra nonlinear",
+    "hilbert_volterra": "Hilbert-Volterra",
 }
 TARGET_DIRS = {
     "diagonal_old": "diagonal_old",
     "hac_filtered": "hac_filtered_L{L}",
-    "volterra_nonlinear": "volterra_nonlinear_L{L}_r{r}_M{M}",
+    "hilbert_volterra": "hilbert_volterra_L{L}_gamma{gamma}_memory_{memory}",
 }
 
 
@@ -56,22 +60,44 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--targets",
         nargs="+",
-        default=["diagonal_old", "hac_filtered", "volterra_nonlinear"],
-        choices=["diagonal_old", "hac_filtered", "volterra_nonlinear"],
+        default=["diagonal_old", "hac_filtered", "hilbert_volterra"],
+        choices=["diagonal_old", "hac_filtered", "hilbert_volterra"],
     )
     parser.add_argument("--hac-lags", type=int, default=12)
-    parser.add_argument("--volterra-rank", type=int, default=5)
-    parser.add_argument("--volterra-level", type=int, default=2)
-    parser.add_argument("--volterra-half-lives", nargs="+", type=float, default=[3.0, 12.0, 36.0])
+    parser.add_argument("--memory-half-lives", nargs="+", type=float, default=[3.0, 12.0, 36.0])
+    parser.add_argument("--memory-weights", default="equal")
+    parser.add_argument("--signature-gamma", type=float, default=0.05)
+    parser.add_argument("--base-inner", choices=["reference_soft", "euclidean"], default="reference_soft")
     parser.add_argument("--time-bandwidth", type=float, default=0.08, help="eta for the old graph-resolvent time kernel")
     parser.add_argument("--feature-bandwidth", default="median")
+    parser.add_argument("--strict-past", dest="strict_past", action="store_true", default=True)
+    parser.add_argument("--include-current", dest="strict_past", action="store_false")
+    parser.add_argument("--kernel-normalize", dest="kernel_normalize", action="store_true", default=True)
+    parser.add_argument("--no-kernel-normalize", dest="kernel_normalize", action="store_false")
+    parser.add_argument("--volterra-rank", type=int, default=None, help=argparse.SUPPRESS)
+    parser.add_argument("--volterra-level", type=int, default=None, help=argparse.SUPPRESS)
+    parser.add_argument("--volterra-pca-dim", type=int, default=None, help=argparse.SUPPRESS)
+    parser.add_argument("--volterra-half-lives", nargs="+", type=float, default=None, help=argparse.SUPPRESS)
     parser.add_argument("--bootstrap-draws", type=int, default=0)
     parser.add_argument("--bootstrap-block-len", type=int, default=18)
     parser.add_argument("--seed", type=int, default=20260703)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs" / "monetary_lp_memory_targets")
     parser.add_argument("--panel", type=Path, default=ROOT / "data_processed" / "processed_panel_three_shock_definitions.csv")
     parser.add_argument("--smoke", action="store_true", help="Use synthetic scores even when empirical data are present")
-    return parser.parse_args()
+    args = parser.parse_args()
+    legacy = []
+    for name in ["volterra_rank", "volterra_level", "volterra_pca_dim", "volterra_half_lives"]:
+        if getattr(args, name) is not None:
+            legacy.append(name.replace("_", "-"))
+    if legacy:
+        warnings.warn(
+            "Finite Volterra rank/level features are legacy. The main Hilbert-Volterra target "
+            "uses a kernelized infinite-level Fock Gram matrix and does not construct Phi_t. "
+            f"Ignored legacy options: {', '.join(legacy)}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+    return args
 
 
 def package_versions() -> dict[str, str]:
@@ -112,6 +138,7 @@ def synthetic_scores(seed: int, n: int = 120, pvars: int = 5, H: int = 24) -> di
         "L": 12,
         "pvars": pvars,
         "source": "synthetic smoke scores",
+        "used_synthetic_scores": True,
         "panel_date_range": "synthetic",
         "missing_empirical_data": [],
         "score_metadata": {},
@@ -148,6 +175,7 @@ def load_empirical_scores(args: argparse.Namespace) -> dict[str, Any]:
         "L": int(scores["L"]),
         "pvars": int(scores["pvars"]),
         "source": str(args.panel),
+        "used_synthetic_scores": False,
         "panel_date_range": f"{panel_dates.min().strftime('%Y-%m-%d')} to {panel_dates.max().strftime('%Y-%m-%d')}",
         "missing_empirical_data": [],
         "score_metadata": {
@@ -161,7 +189,9 @@ def load_empirical_scores(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def target_directory(base: Path, target: str, args: argparse.Namespace) -> Path:
-    name = TARGET_DIRS[target].format(L=args.hac_lags, r=args.volterra_rank, M=args.volterra_level)
+    memory_tag = "_".join(f"{h:g}".replace(".", "p") for h in getattr(args, "memory_half_lives", []))
+    gamma_tag = f"{int(round(float(getattr(args, 'signature_gamma', 0.0)) * 100)):03d}"
+    name = TARGET_DIRS[target].format(L=args.hac_lags, gamma=gamma_tag, memory=memory_tag)
     path = base / name
     path.mkdir(parents=True, exist_ok=True)
     return path
@@ -187,23 +217,33 @@ def build_target(target: str, data: dict[str, Any], args: argparse.Namespace) ->
             kernel="graph_resolvent",
             reference="empirical",
         )
-    if target == "volterra_nonlinear":
+    if target == "hilbert_volterra":
         feature_bandwidth: str | float
         try:
             feature_bandwidth = float(args.feature_bandwidth)
         except ValueError:
             feature_bandwidth = str(args.feature_bandwidth)
-        return make_volterra_nonlinear_target(
+        memory_weights: str | tuple[float, ...]
+        if str(args.memory_weights).lower() == "equal":
+            memory_weights = "equal"
+        else:
+            memory_weights = tuple(float(x) for x in str(args.memory_weights).split(","))
+        config = HilbertVolterraKernelConfig(
+            memory_half_lives=tuple(float(x) for x in args.memory_half_lives),
+            memory_weights=memory_weights,
+            gamma=float(args.signature_gamma),
+            base_inner=str(args.base_inner),
+            strict_past=bool(args.strict_past),
+            normalize_kernel=bool(args.kernel_normalize),
+            feature_bandwidth=feature_bandwidth,
+        )
+        return make_hilbert_volterra_target(
             psi,
             dates,
-            L=args.hac_lags,
-            r=args.volterra_rank,
-            level=args.volterra_level,
-            half_lives=tuple(args.volterra_half_lives),
+            hac_lags=args.hac_lags,
+            config=config,
             time_bandwidth=args.time_bandwidth,
-            feature_bandwidth=feature_bandwidth,
-            kernel="graph_resolvent",
-            reference="grid_or_empirical",
+            reference="grid_induced",
         )
     raise ValueError(f"unknown target: {target}")
 
@@ -288,6 +328,27 @@ def plot_selected_stress(result: Any, episodes: list[dict[str, Any]], H: int, la
     plt.close(fig)
 
 
+def metadata_for_json(value: Any) -> Any:
+    """Convert metadata to JSON-safe objects without inlining large arrays."""
+    if isinstance(value, dict):
+        out: dict[str, Any] = {}
+        for key, item in value.items():
+            if key in {"kappa_raw", "kappa_norm", "fock_distance"}:
+                out[key] = f"saved separately as {key}.npy"
+            else:
+                out[key] = metadata_for_json(item)
+        return out
+    if isinstance(value, np.ndarray):
+        if value.ndim == 0:
+            return float(value)
+        return {"array_shape": list(value.shape), "array_dtype": str(value.dtype)}
+    if isinstance(value, (np.floating, np.integer)):
+        return value.item()
+    if isinstance(value, (list, tuple)):
+        return [metadata_for_json(x) for x in value]
+    return value
+
+
 def bootstrap_tau(
     target: str,
     data: dict[str, Any],
@@ -347,10 +408,20 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
     title = {
         "diagonal_old": "Old diagonal response-score OVK amplification",
         "hac_filtered": f"HAC-aware filtered-score OVK amplification, Bartlett L={args.hac_lags}",
-        "volterra_nonlinear": f"Nonlinear Volterra-featured HAC OVK amplification, L={args.hac_lags}, r={args.volterra_rank}, M={args.volterra_level}",
+        "hilbert_volterra": (
+            "Kernelized Hilbert/Fock Volterra HAC OVK amplification, "
+            f"L={args.hac_lags}, gamma={args.signature_gamma:g}"
+        ),
     }[target]
     plot_tau(tau_df, out_dir / "tau_soft.png", title, TARGET_LABELS[target])
     plot_selected_stress(result, episodes, H, labels, out_dir / "selected_month_stress.png", title)
+
+    target_meta = metadata_for_json(target_result.metadata)
+    if target == "hilbert_volterra":
+        np.save(out_dir / "kappa_raw.npy", np.asarray(target_result.metadata["kappa_raw"], dtype=float))
+        np.save(out_dir / "kappa_norm.npy", np.asarray(target_result.metadata["kappa_norm"], dtype=float))
+        np.save(out_dir / "fock_distance.npy", np.asarray(target_result.metadata["fock_distance"], dtype=float))
+        np.save(out_dir / "weights.npy", np.asarray(target_result.weights, dtype=float))
 
     boot_df = bootstrap_tau(target, data, args, build_target)
     if len(boot_df):
@@ -370,6 +441,7 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
     metadata = {
         "target_type": target,
         "score_source": data["source"],
+        "used_synthetic_scores": bool(data.get("used_synthetic_scores", False)),
         "missing_empirical_data": data["missing_empirical_data"],
         "score_matrix_shape": list(np.asarray(data["psi"]).shape),
         "filtered_score_shape": list(target_result.scores.shape),
@@ -381,14 +453,35 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
         "outcome_columns": data["outcome_columns"],
         "horizons": [0, H],
         "L": int(args.hac_lags if target != "diagonal_old" else data["L"]),
+        "HAC_lag_L": int(args.hac_lags if target != "diagonal_old" else data["L"]),
         "time_bandwidth": float(args.time_bandwidth),
-        "feature_bandwidth": target_result.metadata.get("feature_bandwidth"),
-        "volterra_half_lives": list(args.volterra_half_lives) if target == "volterra_nonlinear" else None,
-        "volterra_level": int(args.volterra_level) if target == "volterra_nonlinear" else None,
-        "projection_rank_r": int(args.volterra_rank) if target == "volterra_nonlinear" else None,
-        "pca_feature_dimension": target_result.metadata.get("volterra_features", {}).get("pca_dim")
-        if target == "volterra_nonlinear"
-        else None,
+        "feature_bandwidth": target_meta.get("hilbert_volterra_weights", {}).get("feature_bandwidth"),
+        "memory_half_lives": target_meta.get("hilbert_volterra_kernel", {}).get("memory_half_lives"),
+        "memory_weights": target_meta.get("hilbert_volterra_kernel", {}).get("memory_weights"),
+        "signature_gamma": target_meta.get("hilbert_volterra_kernel", {}).get("signature_gamma"),
+        "base_inner_product_method": target_meta.get("base_score_gram", {}).get("base_inner"),
+        "C_base_trace": target_meta.get("base_score_gram", {}).get("C_base_trace"),
+        "score_gram_rho": target_meta.get("base_score_gram", {}).get("rho"),
+        "score_gram_d_rho": target_meta.get("base_score_gram", {}).get("d_rho"),
+        "strict_past": target_meta.get("hilbert_volterra_kernel", {}).get("strict_past"),
+        "kernel_normalize": target_meta.get("hilbert_volterra_kernel", {}).get("normalize_kernel"),
+        "raw_kernel_min": target_meta.get("hilbert_volterra_kernel", {}).get("raw_kernel_min"),
+        "raw_kernel_max": target_meta.get("hilbert_volterra_kernel", {}).get("raw_kernel_max"),
+        "raw_kernel_diag_range": [
+            target_meta.get("hilbert_volterra_kernel", {}).get("raw_kernel_diag_min"),
+            target_meta.get("hilbert_volterra_kernel", {}).get("raw_kernel_diag_max"),
+        ],
+        "normalized_kernel_min": target_meta.get("hilbert_volterra_kernel", {}).get("normalized_kernel_min"),
+        "normalized_kernel_max": target_meta.get("hilbert_volterra_kernel", {}).get("normalized_kernel_max"),
+        "normalized_kernel_diag_range": [
+            target_meta.get("hilbert_volterra_kernel", {}).get("normalized_kernel_diag_min"),
+            target_meta.get("hilbert_volterra_kernel", {}).get("normalized_kernel_diag_max"),
+        ],
+        "Fock_distance_min_median_max": [
+            target_meta.get("hilbert_volterra_kernel", {}).get("distance_min"),
+            target_meta.get("hilbert_volterra_kernel", {}).get("distance_median_positive"),
+            target_meta.get("hilbert_volterra_kernel", {}).get("distance_max"),
+        ],
         "rho": float(result.rho),
         "d_rho": float(result.d_rho),
         "reference_rule": target_result.metadata.get("reference_rule"),
@@ -399,18 +492,19 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
         "median_normalized_ess": float(np.median(ess_norm)),
         "max_normalized_ess": float(np.max(ess_norm)),
         "PSD_diagnostics": {"K_by_state": psd_diag, "C_ref": C_psd_diag},
+        "kernel_PSD_diagnostics": {
+            "kappa_raw": target_meta.get("hilbert_volterra_kernel", {}).get("raw_kernel_psd"),
+            "kappa_norm": target_meta.get("hilbert_volterra_kernel", {}).get("normalized_kernel_psd"),
+        },
         "normalization_diagnostics": normalization,
         "package_versions": package_versions(),
-        "target_metadata": target_result.metadata,
+        "target_metadata": target_meta,
         "score_metadata": data["score_metadata"],
         "note": "This target is a diagnostic moment field, not a time-varying causal effect.",
     }
     (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
-    if target == "volterra_nonlinear":
-        (out_dir / "volterra_feature_metadata.json").write_text(
-            json.dumps(target_result.metadata.get("volterra_features", {}), indent=2),
-            encoding="utf-8",
-        )
+    if target == "hilbert_volterra":
+        (out_dir / "hilbert_volterra_metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     return {
         "target": target,
         "label": TARGET_LABELS[target],
@@ -458,11 +552,11 @@ def save_comparison(outputs: list[dict[str, Any]], args: argparse.Namespace) -> 
 
     tau_cols = [c for c in merged.columns if c.startswith("tau_soft_")]
     corr = merged[tau_cols].corr(min_periods=12)
-    corr.to_csv(comp / "tau_soft_correlations.csv")
+    corr.to_csv(comp / "target_correlations.csv")
 
     old_top = set(top_df.loc[top_df["target"].eq("diagonal_old"), "date"])
     new_rows = []
-    for target in ["hac_filtered", "volterra_nonlinear"]:
+    for target in [item["target"] for item in outputs if item["target"] != "diagonal_old"]:
         sub = top_df[top_df["target"].eq(target)]
         for row in sub.itertuples(index=False):
             if row.date not in old_top:
@@ -475,7 +569,7 @@ def save_comparison(outputs: list[dict[str, Any]], args: argparse.Namespace) -> 
         if col in merged:
             ax.plot(pd.to_datetime(merged["date"]), merged[col], label=item["label"], linewidth=1.25)
     ax.axhline(1.0, linewidth=0.9, color="black", linestyle="--", label="reference = 1")
-    ax.set_title("Old vs HAC-filtered vs nonlinear Volterra OVK amplification")
+    ax.set_title("Old vs HAC-filtered vs Hilbert-Volterra OVK amplification")
     ax.set_ylabel("tau_soft")
     ax.set_xlabel("Date")
     ax.legend()
@@ -516,10 +610,14 @@ def build_summary(
         meta = item["metadata"]
         norm = meta["normalization_diagnostics"]
         psd = meta["PSD_diagnostics"]["K_by_state"]
+        extra = ""
+        if target == "hilbert_volterra":
+            kpsd = meta.get("kernel_PSD_diagnostics", {}).get("kappa_norm") or {}
+            extra = f", kappa_norm min eig {kpsd.get('min_eigenvalue', float('nan')):.3e}"
         diag_lines.append(
             f"- {target}: min eig {psd['min_eigenvalue']:.3e}, "
             f"mean tau error {norm['uniform_state_average_tau_soft_error']:.3e}, "
-            f"ESS median {meta['median_ess']:.1f}"
+            f"ESS median {meta['median_ess']:.1f}{extra}"
         )
     caveat = "Empirical monetary-policy data were available." if not missing else f"Empirical data missing; smoke scores used. Missing files: {missing}."
     return f"""# Monetary LP Memory-Target OVK Summary
@@ -531,18 +629,27 @@ Score source: `{source}`.
 ## 1. What changed from the old target
 
 - Old: `K_old(s) = sum_t w(s,t) psi_t psi_t'`.
-- HAC: `K_HAC(s) = sum_t w(s,t) Z_t Z_t'`, with Bartlett-filtered scores and `L={args.hac_lags}`.
-- Nonlinear: `K_VSig(s) = sum_t w_NL(s,t) Z_t Z_t'`, where Volterra history features alter the state weights.
+- HAC: `K_HAC(s) = sum_t w_time(s,t) Z_t Z_t'`, with Bartlett-filtered scores and `L={args.hac_lags}`.
+- Hilbert-Volterra: `K_HV(s) = sum_t w_HV(s,t) Z_t Z_t'`, where `w_HV` uses a normalized infinite-level Fock Gram matrix.
+- The old finite `Phi_t` prototype is not used by the main empirical target: no rank `r`, no level `M`, and no PCA feature truncation.
 
-## 2. Why HAC_filtered is HAC-aware
+## 2. Mathematical target
+
+`w_HV(s,t)` is proportional to the old calendar-time kernel times `exp(-d_Fock(s,t)^2/(2 h_Fock^2))`. The distance is computed from the normalized Fock Gram matrix, not from explicit tensor features.
+
+## 3. Why the target is Hilbert-space consistent
+
+The score vector `psi_t` lives in the original coefficient/influence space `H` represented here by `R^125`. The nonlinear history object lives in the weighted Fock space `F_beta(H)`, but only its Gram matrix is required. The final `K_HV(s)` remains a positive `p x p` operator on `H`, so the old ridge-soft relative-moment machinery applies unchanged.
+
+## 4. Why HAC_filtered is HAC-aware
 
 With `Z_t = (1/sqrt(L+1)) sum_ell psi_{{t-ell}}`, expanding `Z_t Z_t'` adds all cross-period products `psi_{{t-ell}} psi_{{t-m}}'`. Grouping by lag gives Bartlett weights `1 - h/(L+1)` without forming a giant lag-stack covariance.
 
-## 3. What nonlinear Volterra features add
+## 5. What nonlinear Volterra/Fock state similarity adds
 
-The Volterra path `Phi_t` summarizes ordered nonlinear interactions in a rank-{args.volterra_rank} projected score history. The nonlinear target compares months using both old calendar proximity and similarity of `Phi_t`, while the final operator remains `p x p`.
+The Hilbert-Volterra target borrows from months with similar ordered score-history geometry. The recursion includes all finite-sample tensor orders; `gamma={args.signature_gamma:g}` controls high-order weighting, not truncation. Memory half-lives are `{[float(x) for x in args.memory_half_lives]}` with `{args.memory_weights}` weights.
 
-## 4. Empirical comparison
+## 6. Empirical comparison
 
 Top old diagonal months:
 {top_lines('diagonal_old')}
@@ -550,26 +657,26 @@ Top old diagonal months:
 Top HAC-filtered months:
 {top_lines('hac_filtered')}
 
-Top nonlinear Volterra months:
-{top_lines('volterra_nonlinear')}
+Top Hilbert-Volterra months:
+{top_lines('hilbert_volterra')}
 
 Tau-path correlations:
 
 {corr_md}
 
-Months newly highlighted by HAC or Volterra top-10 lists:
+Months newly highlighted by HAC or Hilbert-Volterra top-10 lists:
 
 {new_md}
 
 Block-probe CSVs in each target directory report outcome-group and horizon-bucket differences.
 
-## 5. Diagnostics
+## 7. Diagnostics
 
 {chr(10).join(diag_lines)}
 
-## 6. Caveats
+## 8. Caveats
 
-These are diagnostic moment fields, not new time-varying causal effects. The HAC target is a filtered long-run exposure target, not a conventional Newey-West standard error. The nonlinear Volterra target depends on projection rank, half-lives, feature bandwidth, and truncation level.
+These are diagnostic moment fields, not new time-varying causal effects. The HAC target is a filtered long-run exposure target, not a conventional Newey-West standard error. Hilbert-Volterra similarity depends on memory kernel, gamma, base inner product, and smoothing bandwidth; conventional HAC inference remains separate unless that inferential covariance target is explicitly defined.
 """
 
 
@@ -603,6 +710,8 @@ def main() -> None:
     print(f"Wrote outputs to {args.output_dir}")
     if data["missing_empirical_data"]:
         print(f"Empirical data missing; smoke scores used: {data['missing_empirical_data']}")
+    elif data.get("used_synthetic_scores", False):
+        print(f"Synthetic smoke score matrix: {data['psi'].shape[0]} x {data['psi'].shape[1]}")
     else:
         print(f"Empirical score matrix: {data['psi'].shape[0]} x {data['psi'].shape[1]}")
 
