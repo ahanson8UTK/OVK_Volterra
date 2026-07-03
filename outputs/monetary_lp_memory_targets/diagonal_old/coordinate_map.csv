@@ -1,0 +1,126 @@
+coordinate,horizon_months,outcome
+0,0,IP
+1,0,CPI
+2,0,Unemployment
+3,0,2Y yield
+4,0,BAA-10Y spread
+5,1,IP
+6,1,CPI
+7,1,Unemployment
+8,1,2Y yield
+9,1,BAA-10Y spread
+10,2,IP
+11,2,CPI
+12,2,Unemployment
+13,2,2Y yield
+14,2,BAA-10Y spread
+15,3,IP
+16,3,CPI
+17,3,Unemployment
+18,3,2Y yield
+19,3,BAA-10Y spread
+20,4,IP
+21,4,CPI
+22,4,Unemployment
+23,4,2Y yield
+24,4,BAA-10Y spread
+25,5,IP
+26,5,CPI
+27,5,Unemployment
+28,5,2Y yield
+29,5,BAA-10Y spread
+30,6,IP
+31,6,CPI
+32,6,Unemployment
+33,6,2Y yield
+34,6,BAA-10Y spread
+35,7,IP
+36,7,CPI
+37,7,Unemployment
+38,7,2Y yield
+39,7,BAA-10Y spread
+40,8,IP
+41,8,CPI
+42,8,Unemployment
+43,8,2Y yield
+44,8,BAA-10Y spread
+45,9,IP
+46,9,CPI
+47,9,Unemployment
+48,9,2Y yield
+49,9,BAA-10Y spread
+50,10,IP
+51,10,CPI
+52,10,Unemployment
+53,10,2Y yield
+54,10,BAA-10Y spread
+55,11,IP
+56,11,CPI
+57,11,Unemployment
+58,11,2Y yield
+59,11,BAA-10Y spread
+60,12,IP
+61,12,CPI
+62,12,Unemployment
+63,12,2Y yield
+64,12,BAA-10Y spread
+65,13,IP
+66,13,CPI
+67,13,Unemployment
+68,13,2Y yield
+69,13,BAA-10Y spread
+70,14,IP
+71,14,CPI
+72,14,Unemployment
+73,14,2Y yield
+74,14,BAA-10Y spread
+75,15,IP
+76,15,CPI
+77,15,Unemployment
+78,15,2Y yield
+79,15,BAA-10Y spread
+80,16,IP
+81,16,CPI
+82,16,Unemployment
+83,16,2Y yield
+84,16,BAA-10Y spread
+85,17,IP
+86,17,CPI
+87,17,Unemployment
+88,17,2Y yield
+89,17,BAA-10Y spread
+90,18,IP
+91,18,CPI
+92,18,Unemployment
+93,18,2Y yield
+94,18,BAA-10Y spread
+95,19,IP
+96,19,CPI
+97,19,Unemployment
+98,19,2Y yield
+99,19,BAA-10Y spread
+100,20,IP
+101,20,CPI
+102,20,Unemployment
+103,20,2Y yield
+104,20,BAA-10Y spread
+105,21,IP
+106,21,CPI
+107,21,Unemployment
+108,21,2Y yield
+109,21,BAA-10Y spread
+110,22,IP
+111,22,CPI
+112,22,Unemployment
+113,22,2Y yield
+114,22,BAA-10Y spread
+115,23,IP
+116,23,CPI
+117,23,Unemployment
+118,23,2Y yield
+119,23,BAA-10Y spread
+120,24,IP
+121,24,CPI
+122,24,Unemployment
+123,24,2Y yield
+124,24,BAA-10Y spread

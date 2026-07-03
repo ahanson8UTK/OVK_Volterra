@@ -81,3 +81,42 @@ Block-probe CSVs in each target directory report outcome-group and horizon-bucke
 ## 8. Caveats
 
 These are diagnostic moment fields, not new time-varying causal effects. The HAC target is a filtered long-run exposure target, not a conventional Newey-West standard error. Hilbert-Volterra similarity depends on memory kernel, gamma, base inner product, and smoothing bandwidth; conventional HAC inference remains separate unless that inferential covariance target is explicitly defined.
+## Route rotation diagnostics
+
+The `tau_soft` comparison reports route scale. These diagnostics compare route-specific relative-moment shapes after placing all three routes in a common ridge-soft geometry and removing each route's common soft scale.
+
+The probed Yosida alignment uses
+
+`Omega = <Q^(1/2) Y_r Q^(1/2), Q^(1/2) Y_r' Q^(1/2)>_HS / (norms)`
+
+and reports `1 - average_lambda Omega`. The full soft probe is the full-coordinate soft comparison; the macro, financial, and horizon probes show whether route rotation is concentrated in economically meaningful blocks.
+
+Mean Yosida rotation:
+
+| pair_label | Full soft | Macro | Financial | Short horizons | Medium horizons | Long horizons |
+| --- | --- | --- | --- | --- | --- | --- |
+| Diagonal vs HAC | 0.332 | 0.306 | 0.278 | 0.212 | 0.264 | 0.294 |
+| HAC vs Hilbert-Volterra | 0.001 | 0.001 | 0.001 | 0.000 | 0.001 | 0.001 |
+| Diagonal vs Hilbert-Volterra | 0.334 | 0.308 | 0.281 | 0.214 | 0.267 | 0.295 |
+
+P90 Yosida rotation:
+
+| pair_label | Full soft | Macro | Financial | Short horizons | Medium horizons | Long horizons |
+| --- | --- | --- | --- | --- | --- | --- |
+| Diagonal vs HAC | 0.365 | 0.340 | 0.315 | 0.269 | 0.302 | 0.339 |
+| HAC vs Hilbert-Volterra | 0.001 | 0.001 | 0.001 | 0.001 | 0.001 | 0.001 |
+| Diagonal vs Hilbert-Volterra | 0.369 | 0.343 | 0.319 | 0.272 | 0.305 | 0.342 |
+
+The commutator diagnostic uses `[Abar_r, Abar_r'] = Abar_r Abar_r' - Abar_r' Abar_r` after scale removal. It separates directional noncommutativity from pure eigenvalue/shape differences and should be interpreted only when both routes have nontrivial anisotropy relative to the common soft-reference shape.
+
+Commutator summary:
+
+| pair_label | p90_commutator_index | max_commutator_index | date_max_commutator | share_dates_interpretable |
+| --- | --- | --- | --- | --- |
+| Diagonal vs HAC | 0.209 | 0.316 | 2011-09-01 | 1.000 |
+| HAC vs Hilbert-Volterra | 0.026 | 0.033 | 2020-05-01 | 1.000 |
+| Diagonal vs Hilbert-Volterra | 0.213 | 0.317 | 2011-09-01 | 1.000 |
+
+Reference mode: `pooled`; common dates: 359; `rho_star=3.431e-08`.
+
+These are diagnostic shape/rotation comparisons, not time-varying causal effects and not conventional HAC standard errors.

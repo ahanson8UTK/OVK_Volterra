@@ -84,6 +84,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs" / "monetary_lp_memory_targets")
     parser.add_argument("--panel", type=Path, default=ROOT / "data_processed" / "processed_panel_three_shock_definitions.csv")
     parser.add_argument("--smoke", action="store_true", help="Use synthetic scores even when empirical data are present")
+    parser.add_argument("--add-rotation-diagnostics", action="store_true")
+    parser.add_argument("--rotation-reference", choices=["pooled", "diagonal", "hac", "hilbert_volterra"], default="pooled")
+    parser.add_argument("--rotation-lambda-min", type=float, default=1e-2)
+    parser.add_argument("--rotation-lambda-max", type=float, default=1e2)
+    parser.add_argument("--rotation-lambda-count", type=int, default=41)
+    parser.add_argument("--min-rotation-anisotropy", type=float, default=0.05)
     args = parser.parse_args()
     legacy = []
     for name in ["volterra_rank", "volterra_level", "volterra_pca_dim", "volterra_half_lives"]:
@@ -421,6 +427,7 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
     H = int(data["H"])
     pvars = int(data["pvars"])
     labels = list(data["labels"])
+    coord_rows = coordinate_map(labels, H)
     shape = pub.full_coordinate_shape_metrics(result, H, pvars, labels)
     block_df = pub.full_coordinate_block_shape_paths(result, H, pvars, labels)
     shape_rms = shape["shape_rms"]
@@ -444,6 +451,10 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
     tau_df.to_csv(out_dir / "tau_soft.csv", index=False)
     block_df.to_csv(out_dir / "block_probes.csv", index=False)
     pd.DataFrame(episodes).drop(columns=["idx"]).to_csv(out_dir / "selected_month_metadata.csv", index=False)
+    np.save(out_dir / "K_by_state.npy", np.asarray(result.K_hat, dtype=float))
+    np.save(out_dir / "C_ref.npy", np.asarray(result.C_hat, dtype=float))
+    pd.DataFrame({"date": dates.dt.strftime("%Y-%m-%d")}).to_csv(out_dir / "state_dates.csv", index=False)
+    pd.DataFrame(coord_rows).to_csv(out_dir / "coordinate_map.csv", index=False)
 
     title = {
         "diagonal_old": "Old diagonal response-score OVK amplification",
@@ -488,7 +499,7 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
         "date_range": f"{dates.min().strftime('%Y-%m-%d')} to {dates.max().strftime('%Y-%m-%d')}",
         "panel_date_range": data["panel_date_range"],
         "p": int(np.asarray(data["psi"]).shape[1]),
-        "coordinate_map": coordinate_map(labels, H),
+        "coordinate_map": coord_rows,
         "outcomes": labels,
         "outcome_columns": data["outcome_columns"],
         "horizons": [0, H],
@@ -747,6 +758,22 @@ def main() -> None:
         target_result = build_target(target, data, args)
         outputs.append(save_target_outputs(target, target_result, data, args))
     save_comparison(outputs, args)
+    if args.add_rotation_diagnostics:
+        from route_rotation import RouteRotationConfig, run_rotation_diagnostics
+
+        routes = tuple(target_directory(args.output_dir, target, args).name for target in ["diagonal_old", "hac_filtered", "hilbert_volterra"])
+        run_rotation_diagnostics(
+            RouteRotationConfig(
+                targets_dir=args.output_dir,
+                comparison_dir=args.output_dir / "comparison",
+                routes=routes,
+                rotation_reference=args.rotation_reference,
+                lambda_min=float(args.rotation_lambda_min),
+                lambda_max=float(args.rotation_lambda_max),
+                lambda_count=int(args.rotation_lambda_count),
+                min_anisotropy=float(args.min_rotation_anisotropy),
+            )
+        )
     print(f"Wrote outputs to {args.output_dir}")
     if data["missing_empirical_data"]:
         print(f"Empirical data missing; smoke scores used: {data['missing_empirical_data']}")
