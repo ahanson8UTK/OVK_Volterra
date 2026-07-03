@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import warnings
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Callable
 
@@ -80,6 +81,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--volterra-half-lives", nargs="+", type=float, default=None, help=argparse.SUPPRESS)
     parser.add_argument("--bootstrap-draws", type=int, default=0)
     parser.add_argument("--bootstrap-block-len", type=int, default=18)
+    parser.add_argument(
+        "--bootstrap-workers",
+        type=int,
+        default=0,
+        help="Parallel workers for bootstrap draws. Use 0 for auto, 1 for serial.",
+    )
+    parser.add_argument(
+        "--bootstrap-chunk-size",
+        type=int,
+        default=0,
+        help="Bootstrap draws per worker task. Use 0 for automatic chunking.",
+    )
     parser.add_argument("--seed", type=int, default=20260703)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs" / "monetary_lp_memory_targets")
     parser.add_argument("--panel", type=Path, default=ROOT / "data_processed" / "processed_panel_three_shock_definitions.csv")
@@ -395,29 +408,91 @@ def metadata_for_json(value: Any) -> Any:
     return value
 
 
+def resolve_bootstrap_workers(args: argparse.Namespace, draws: int) -> int:
+    """Resolve the number of bootstrap worker processes."""
+    if draws <= 1:
+        return 1
+    requested = int(getattr(args, "bootstrap_workers", 0))
+    if requested == 0:
+        auto = max(1, min((os.cpu_count() or 2) - 1, 8))
+        return max(1, min(draws, auto))
+    return max(1, min(draws, requested))
+
+
+def make_bootstrap_draw_indices(n: int, block_len: int, draws: int, seed: int) -> list[tuple[int, np.ndarray]]:
+    """Precompute moving-block bootstrap indices so worker count cannot change resamples."""
+    rng = np.random.default_rng(int(seed) + 17)
+    return [(b, pub.circular_block_indices(int(n), int(block_len), rng)) for b in range(int(draws))]
+
+
+def chunk_bootstrap_draws(draw_items: list[tuple[int, np.ndarray]], workers: int, chunk_size: int = 0) -> list[list[tuple[int, np.ndarray]]]:
+    """Split bootstrap draw items into load-balanced chunks."""
+    if not draw_items:
+        return []
+    if chunk_size <= 0:
+        chunk_size = max(1, int(np.ceil(len(draw_items) / max(1, workers * 4))))
+    return [draw_items[i : i + chunk_size] for i in range(0, len(draw_items), chunk_size)]
+
+
+def _bootstrap_chunk_rows(target: str, data: dict[str, Any], args: argparse.Namespace, draw_items: list[tuple[int, np.ndarray]]) -> list[dict[str, Any]]:
+    psi = np.asarray(data["psi"], dtype=float)
+    dates = pd.to_datetime(pd.Series(data["dates"]), errors="coerce").reset_index(drop=True)
+    rows: list[dict[str, Any]] = []
+    for b, ix in draw_items:
+        boot_data = dict(data)
+        boot_data["psi"] = psi[np.asarray(ix, dtype=int)]
+        boot_data["dates"] = dates.reset_index(drop=True)
+        target_result = build_target(target, boot_data, args)
+        geom = relative_geometry_from_target(target_result.K_by_state, target_result.C_ref)
+        for i, date in enumerate(target_result.state_dates):
+            rows.append({"draw": int(b), "date": pd.to_datetime(date).strftime("%Y-%m-%d"), "tau_soft": float(geom["tau_soft"][i])})
+    return rows
+
+
+def _bootstrap_chunk_worker(payload: tuple[str, dict[str, Any], argparse.Namespace, list[tuple[int, np.ndarray]]]) -> list[dict[str, Any]]:
+    target, data, args, draw_items = payload
+    return _bootstrap_chunk_rows(target, data, args, draw_items)
+
+
 def bootstrap_tau(
     target: str,
     data: dict[str, Any],
     args: argparse.Namespace,
-    builder: Callable[[str, dict[str, Any], argparse.Namespace], TargetResult],
+    builder: Callable[[str, dict[str, Any], argparse.Namespace], TargetResult] | None = None,
 ) -> pd.DataFrame:
     draws = int(args.bootstrap_draws)
     if draws <= 0:
         return pd.DataFrame()
-    rng = np.random.default_rng(args.seed + 17)
-    psi = np.asarray(data["psi"], dtype=float)
-    dates = data["dates"]
-    rows = []
-    for b in range(draws):
-        ix = pub.circular_block_indices(len(psi), int(args.bootstrap_block_len), rng)
-        boot_data = dict(data)
-        boot_data["psi"] = psi[ix]
-        boot_data["dates"] = dates.reset_index(drop=True)
-        target_result = builder(target, boot_data, args)
-        geom = relative_geometry_from_target(target_result.K_by_state, target_result.C_ref)
-        for i, date in enumerate(target_result.state_dates):
-            rows.append({"draw": b, "date": pd.to_datetime(date).strftime("%Y-%m-%d"), "tau_soft": float(geom["tau_soft"][i])})
-    return pd.DataFrame(rows)
+    draw_items = make_bootstrap_draw_indices(
+        n=len(np.asarray(data["psi"])),
+        block_len=int(args.bootstrap_block_len),
+        draws=draws,
+        seed=int(args.seed),
+    )
+    workers = resolve_bootstrap_workers(args, draws)
+    rows: list[dict[str, Any]] = []
+    if workers <= 1 or (builder is not None and builder is not build_target):
+        builder_fn = build_target if builder is None else builder
+        psi = np.asarray(data["psi"], dtype=float)
+        dates = pd.to_datetime(pd.Series(data["dates"]), errors="coerce").reset_index(drop=True)
+        for b, ix in draw_items:
+            boot_data = dict(data)
+            boot_data["psi"] = psi[np.asarray(ix, dtype=int)]
+            boot_data["dates"] = dates.reset_index(drop=True)
+            target_result = builder_fn(target, boot_data, args)
+            geom = relative_geometry_from_target(target_result.K_by_state, target_result.C_ref)
+            for i, date in enumerate(target_result.state_dates):
+                rows.append({"draw": int(b), "date": pd.to_datetime(date).strftime("%Y-%m-%d"), "tau_soft": float(geom["tau_soft"][i])})
+    else:
+        chunks = chunk_bootstrap_draws(draw_items, workers, int(getattr(args, "bootstrap_chunk_size", 0)))
+        payloads = [(target, data, args, chunk) for chunk in chunks]
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            futures = [pool.submit(_bootstrap_chunk_worker, payload) for payload in payloads]
+            for future in as_completed(futures):
+                rows.extend(future.result())
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(["draw", "date"]).reset_index(drop=True)
 
 
 def save_target_outputs(target: str, target_result: TargetResult, data: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
@@ -551,6 +626,15 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
         "package_versions": package_versions(),
         "target_metadata": target_meta,
         "score_metadata": data["score_metadata"],
+        "bootstrap": {
+            "draws": int(args.bootstrap_draws),
+            "block_length": int(args.bootstrap_block_len),
+            "workers_requested": int(getattr(args, "bootstrap_workers", 0)),
+            "workers_resolved": int(resolve_bootstrap_workers(args, int(args.bootstrap_draws))),
+            "chunk_size_requested": int(getattr(args, "bootstrap_chunk_size", 0)),
+            "parallel_backend": "process_pool" if resolve_bootstrap_workers(args, int(args.bootstrap_draws)) > 1 else "serial",
+            "indices_precomputed": bool(int(args.bootstrap_draws) > 0),
+        },
         "note": "This target is a diagnostic moment field, not a time-varying causal effect.",
     }
     (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")

@@ -1286,5 +1286,14 @@
     "valid_idx_min": 13,
     "valid_idx_max": 383
   },
+  "bootstrap": {
+    "draws": 0,
+    "block_length": 18,
+    "workers_requested": 0,
+    "workers_resolved": 1,
+    "chunk_size_requested": 0,
+    "parallel_backend": "serial",
+    "indices_precomputed": false
+  },
   "note": "This target is a diagnostic moment field, not a time-varying causal effect."
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import itertools
 import inspect
 import sys
@@ -177,3 +178,34 @@ def test_main_runner_does_not_call_legacy_finite_volterra_features() -> None:
     for token in banned:
         assert token not in source
     assert "make_hilbert_volterra_target" in source
+
+
+def test_bootstrap_indices_are_deterministic_and_chunked() -> None:
+    draws1 = runner.make_bootstrap_draw_indices(n=25, block_len=5, draws=7, seed=123)
+    draws2 = runner.make_bootstrap_draw_indices(n=25, block_len=5, draws=7, seed=123)
+    assert [b for b, _ in draws1] == list(range(7))
+    for (b1, ix1), (b2, ix2) in zip(draws1, draws2):
+        assert b1 == b2
+        assert np.array_equal(ix1, ix2)
+    chunks = runner.chunk_bootstrap_draws(draws1, workers=3, chunk_size=2)
+    flattened = [b for chunk in chunks for b, _ in chunk]
+    assert flattened == list(range(7))
+    assert all(len(chunk) <= 2 for chunk in chunks)
+
+
+def test_serial_bootstrap_tau_is_deterministic_and_sorted() -> None:
+    psi, dates = _scores(n=24, p=5)
+    args = argparse.Namespace(
+        bootstrap_draws=3,
+        bootstrap_block_len=4,
+        bootstrap_workers=1,
+        bootstrap_chunk_size=0,
+        seed=321,
+        time_bandwidth=3.0,
+    )
+    data = {"psi": psi, "dates": dates}
+    left = runner.bootstrap_tau("diagonal_old", data, args)
+    right = runner.bootstrap_tau("diagonal_old", data, args)
+    pd.testing.assert_frame_equal(left, right)
+    assert len(left) == 3 * len(dates)
+    assert left[["draw", "date"]].equals(left.sort_values(["draw", "date"])[["draw", "date"]].reset_index(drop=True))

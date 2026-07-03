@@ -15,9 +15,14 @@ python scripts/run_monetary_lp_memory_targets.py \
   --feature-bandwidth median \
   --strict-past \
   --bootstrap-draws 0 \
+  --bootstrap-workers 0 \
   --add-rotation-diagnostics \
   --output-dir outputs/monetary_lp_memory_targets
 ```
+
+Use `--bootstrap-workers 0` for automatic process parallelism when
+`--bootstrap-draws` is positive, or `--bootstrap-workers 1` for serial
+bootstrap draws.
 
 Refresh only the route-rotation diagnostics from saved route operators:
 
