@@ -209,3 +209,28 @@ def test_serial_bootstrap_tau_is_deterministic_and_sorted() -> None:
     pd.testing.assert_frame_equal(left, right)
     assert len(left) == 3 * len(dates)
     assert left[["draw", "date"]].equals(left.sort_values(["draw", "date"])[["draw", "date"]].reset_index(drop=True))
+
+
+def test_shared_bootstrap_draw_plan_is_saved_and_controls_targets(tmp_path: Path) -> None:
+    psi, dates = _scores(n=24, p=5)
+    args = argparse.Namespace(
+        bootstrap_draws=3,
+        bootstrap_block_len=4,
+        bootstrap_workers=1,
+        bootstrap_chunk_size=0,
+        seed=321,
+        time_bandwidth=3.0,
+    )
+    data = {"psi": psi, "dates": dates}
+    draw_items = runner.make_bootstrap_draw_indices(n=len(psi), block_len=4, draws=3, seed=321)
+    metadata = runner.save_bootstrap_draw_plan(tmp_path, args, data, draw_items)
+    saved = np.load(tmp_path / "bootstrap_draw_indices.npy")
+    assert saved.shape == (3, len(psi))
+    assert metadata["paired_across_targets"] is True
+    assert metadata["draw_plan_digest"] == runner.bootstrap_draw_plan_digest(draw_items)
+    assert (tmp_path / "bootstrap_draw_plan_metadata.json").exists()
+
+    args_other_seed = argparse.Namespace(**{**vars(args), "seed": 999})
+    left = runner.bootstrap_tau("diagonal_old", data, args, draw_items=draw_items)
+    right = runner.bootstrap_tau("diagonal_old", data, args_other_seed, draw_items=draw_items)
+    pd.testing.assert_frame_equal(left, right)

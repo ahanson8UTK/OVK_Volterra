@@ -22,7 +22,9 @@ python scripts/run_monetary_lp_memory_targets.py \
 
 Use `--bootstrap-workers 0` for automatic process parallelism when
 `--bootstrap-draws` is positive, or `--bootstrap-workers 1` for serial
-bootstrap draws.
+bootstrap draws. Bootstrap row indices are generated once per run and saved as
+`bootstrap_draw_indices.npy`, so draw `b` is paired across the diagonal, HAC,
+and Hilbert-Volterra targets.
 
 Refresh only the route-rotation diagnostics from saved route operators:
 

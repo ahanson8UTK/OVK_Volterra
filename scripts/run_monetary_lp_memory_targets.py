@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -425,6 +426,48 @@ def make_bootstrap_draw_indices(n: int, block_len: int, draws: int, seed: int) -
     return [(b, pub.circular_block_indices(int(n), int(block_len), rng)) for b in range(int(draws))]
 
 
+def bootstrap_draw_plan_digest(draw_items: list[tuple[int, np.ndarray]]) -> str:
+    """Stable digest for a shared bootstrap draw plan."""
+    h = hashlib.sha256()
+    for draw_id, indices in draw_items:
+        h.update(np.asarray([int(draw_id)], dtype=np.int64).tobytes())
+        h.update(np.asarray(indices, dtype=np.int64).tobytes())
+    return h.hexdigest()
+
+
+def save_bootstrap_draw_plan(output_dir: Path, args: argparse.Namespace, data: dict[str, Any], draw_items: list[tuple[int, np.ndarray]]) -> dict[str, Any]:
+    """Save the paired bootstrap draw plan shared by all target models."""
+    draws = int(args.bootstrap_draws)
+    if draws <= 0:
+        return {
+            "draws": 0,
+            "paired_across_targets": False,
+            "draw_plan_digest": None,
+            "draw_indices_file": None,
+        }
+    if len(draw_items) != draws:
+        raise ValueError(f"bootstrap draw plan has {len(draw_items)} draws, expected {draws}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    draw_ids = np.asarray([draw_id for draw_id, _ in draw_items], dtype=np.int64)
+    indices = np.vstack([np.asarray(ix, dtype=np.int64) for _, ix in draw_items])
+    digest = bootstrap_draw_plan_digest(draw_items)
+    np.save(output_dir / "bootstrap_draw_indices.npy", indices)
+    metadata = {
+        "draws": draws,
+        "draw_ids": draw_ids.tolist(),
+        "n_observations": int(np.asarray(data["psi"]).shape[0]),
+        "block_length": int(args.bootstrap_block_len),
+        "seed": int(args.seed),
+        "index_shape": list(indices.shape),
+        "paired_across_targets": True,
+        "draw_plan_digest": digest,
+        "draw_indices_file": "bootstrap_draw_indices.npy",
+        "note": "Rows are bootstrap draw ids and columns are source-row indices. The same row is used for every target model.",
+    }
+    (output_dir / "bootstrap_draw_plan_metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+    return metadata
+
+
 def chunk_bootstrap_draws(draw_items: list[tuple[int, np.ndarray]], workers: int, chunk_size: int = 0) -> list[list[tuple[int, np.ndarray]]]:
     """Split bootstrap draw items into load-balanced chunks."""
     if not draw_items:
@@ -459,16 +502,20 @@ def bootstrap_tau(
     data: dict[str, Any],
     args: argparse.Namespace,
     builder: Callable[[str, dict[str, Any], argparse.Namespace], TargetResult] | None = None,
+    draw_items: list[tuple[int, np.ndarray]] | None = None,
 ) -> pd.DataFrame:
     draws = int(args.bootstrap_draws)
     if draws <= 0:
         return pd.DataFrame()
-    draw_items = make_bootstrap_draw_indices(
-        n=len(np.asarray(data["psi"])),
-        block_len=int(args.bootstrap_block_len),
-        draws=draws,
-        seed=int(args.seed),
-    )
+    if draw_items is None:
+        draw_items = make_bootstrap_draw_indices(
+            n=len(np.asarray(data["psi"])),
+            block_len=int(args.bootstrap_block_len),
+            draws=draws,
+            seed=int(args.seed),
+        )
+    elif len(draw_items) != draws:
+        raise ValueError(f"bootstrap draw plan has {len(draw_items)} draws, expected {draws}")
     workers = resolve_bootstrap_workers(args, draws)
     rows: list[dict[str, Any]] = []
     if workers <= 1 or (builder is not None and builder is not build_target):
@@ -495,7 +542,14 @@ def bootstrap_tau(
     return pd.DataFrame(rows).sort_values(["draw", "date"]).reset_index(drop=True)
 
 
-def save_target_outputs(target: str, target_result: TargetResult, data: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+def save_target_outputs(
+    target: str,
+    target_result: TargetResult,
+    data: dict[str, Any],
+    args: argparse.Namespace,
+    bootstrap_draw_items: list[tuple[int, np.ndarray]] | None = None,
+    bootstrap_plan_metadata: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     out_dir = target_directory(args.output_dir, target, args)
     geometry = relative_geometry_from_target(target_result.K_by_state, target_result.C_ref)
     result = result_for_old_helpers(target, target_result, geometry, data["labels"], args.time_bandwidth)
@@ -549,7 +603,7 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
         np.save(out_dir / "fock_distance.npy", np.asarray(target_result.metadata["fock_distance"], dtype=float))
         np.save(out_dir / "weights.npy", np.asarray(target_result.weights, dtype=float))
 
-    boot_df = bootstrap_tau(target, data, args, build_target)
+    boot_df = bootstrap_tau(target, data, args, build_target, draw_items=bootstrap_draw_items)
     if len(boot_df):
         boot_df.to_csv(out_dir / "tau_soft_bootstrap_draws.csv", index=False)
 
@@ -634,6 +688,9 @@ def save_target_outputs(target: str, target_result: TargetResult, data: dict[str
             "chunk_size_requested": int(getattr(args, "bootstrap_chunk_size", 0)),
             "parallel_backend": "process_pool" if resolve_bootstrap_workers(args, int(args.bootstrap_draws)) > 1 else "serial",
             "indices_precomputed": bool(int(args.bootstrap_draws) > 0),
+            "paired_across_targets": bool((bootstrap_plan_metadata or {}).get("paired_across_targets", False)),
+            "draw_plan_digest": (bootstrap_plan_metadata or {}).get("draw_plan_digest"),
+            "draw_indices_file": (bootstrap_plan_metadata or {}).get("draw_indices_file"),
         },
         "note": "This target is a diagnostic moment field, not a time-varying causal effect.",
     }
@@ -837,10 +894,28 @@ def main() -> None:
     args = parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     data = load_empirical_scores(args)
+    bootstrap_draw_items: list[tuple[int, np.ndarray]] | None = None
+    if int(args.bootstrap_draws) > 0:
+        bootstrap_draw_items = make_bootstrap_draw_indices(
+            n=len(np.asarray(data["psi"])),
+            block_len=int(args.bootstrap_block_len),
+            draws=int(args.bootstrap_draws),
+            seed=int(args.seed),
+        )
+    bootstrap_plan_metadata = save_bootstrap_draw_plan(args.output_dir, args, data, bootstrap_draw_items or [])
     outputs = []
     for target in args.targets:
         target_result = build_target(target, data, args)
-        outputs.append(save_target_outputs(target, target_result, data, args))
+        outputs.append(
+            save_target_outputs(
+                target,
+                target_result,
+                data,
+                args,
+                bootstrap_draw_items=bootstrap_draw_items,
+                bootstrap_plan_metadata=bootstrap_plan_metadata,
+            )
+        )
     save_comparison(outputs, args)
     if args.add_rotation_diagnostics:
         from route_rotation import RouteRotationConfig, run_rotation_diagnostics
