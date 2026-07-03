@@ -1,0 +1,3 @@
+role,eta,effective_n_median,max_rank5_exact_error_lambda1,median_severe_direction_count_2,max_severe_direction_count_2,median_severe_subspace_capture_2,median_severe_direction_count_4,max_severe_direction_count_4,median_severe_subspace_capture_4
+selected,4.156385439467579e-09,375.00000196457665,0.37934853383832867,0.0,0,,0.0,0,
+less_smoothed,7.192102518236318e-09,374.9999905957716,0.3793507358170355,0.0,0,,0.0,0,

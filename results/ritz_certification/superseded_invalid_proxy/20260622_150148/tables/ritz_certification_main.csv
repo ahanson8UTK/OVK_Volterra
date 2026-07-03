@@ -1,0 +1,4 @@
+application,principal_probe,p,R_display,max_exact_error_R_display,max_certificate_R_display,R_0.10,R_0.05,rho,state_count,state_mask_note,top5_trace_share
+Macro / monetary policy,whole-surface soft probe,125,5,0.02840796838796987,1.0,125,125,0.03,375,All cached base-five headline usable monthly score surfaces.,0.8944561273385033
+LaLonde,overall ATE direction,11,5,0.011282381984892509,0.8047878481420545,11,11,0.03,90,All points on the published one-dimensional logit-propensity support grid.,0.9644871348203212
+Hurricane,fiscal post-treatment block,72,5,0.21433262812442677,1.0,72,72,0.08,195,All published region-year cells from the corrected hurricane space-time smoother.,0.6025731585524929

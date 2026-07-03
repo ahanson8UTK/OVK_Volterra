@@ -1,0 +1,41 @@
+{
+  "panel_path": "/mnt/data/monthly_ovk_state_space_uncertainty/outputs/ovk_monetary_panel_monthly_fixed_full.csv",
+  "N": 392,
+  "M": 125,
+  "train_end": 180,
+  "val_start": 100,
+  "eval_start_date": "2006-02-01",
+  "eval_end_date": "2023-09-01",
+  "params": {
+    "M0": {
+      "kmean": 0.0,
+      "kcov": 0.0,
+      "phi": 0.98,
+      "cov_shrink": 0.15,
+      "cov_target_weight": 0.1
+    },
+    "M1": {
+      "kmean": 0.0,
+      "kcov": 0.12,
+      "phi": 0.98,
+      "cov_shrink": 0.15,
+      "cov_target_weight": 0.1
+    },
+    "M2": {
+      "kmean": 0.12,
+      "kcov": 0.0,
+      "phi": 0.98,
+      "cov_shrink": 0.15,
+      "cov_target_weight": 0.1
+    },
+    "M3": {
+      "kmean": 0.015,
+      "kcov": 0.12,
+      "phi": 0.98,
+      "cov_shrink": 0.15,
+      "cov_target_weight": 0.1
+    }
+  },
+  "survival_corr_trace": 0.9999987817880382,
+  "top12_overlap": 12
+}

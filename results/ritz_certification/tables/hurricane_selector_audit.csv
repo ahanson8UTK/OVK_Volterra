@@ -1,0 +1,73 @@
+surface_index,outcome,outcome_label,event_bin,event_bin_label,stata_variable,block,bin_block,included_in_fiscal,included_in_fiscal_post,included_in_full_surface
+0,log_curr_trans_ind_gov_pc,Government transfers per capita,far_pre,<= -11,hurr_p,fiscal,pre,True,False,True
+1,log_curr_trans_ind_gov_pc,Government transfers per capita,pre_9_10,-10 to -9,hurr_f9_10,fiscal,pre,True,False,True
+2,log_curr_trans_ind_gov_pc,Government transfers per capita,pre_7_8,-8 to -7,hurr_f7_8,fiscal,pre,True,False,True
+3,log_curr_trans_ind_gov_pc,Government transfers per capita,pre_5_6,-6 to -5,hurr_f5_6,fiscal,pre,True,False,True
+4,log_curr_trans_ind_gov_pc,Government transfers per capita,pre_3_4,-4 to -3,hurr_f3_4,fiscal,pre,True,False,True
+5,log_curr_trans_ind_gov_pc,Government transfers per capita,event_0,0,hurricane,fiscal,early_post,True,True,True
+6,log_curr_trans_ind_gov_pc,Government transfers per capita,post_1_2,1 to 2,hurr_1_2,fiscal,early_post,True,True,True
+7,log_curr_trans_ind_gov_pc,Government transfers per capita,post_3_4,3 to 4,hurr_3_4,fiscal,early_post,True,True,True
+8,log_curr_trans_ind_gov_pc,Government transfers per capita,post_5_6,5 to 6,hurr_5_6,fiscal,late_post,True,True,True
+9,log_curr_trans_ind_gov_pc,Government transfers per capita,post_7_8,7 to 8,hurr_7_8,fiscal,late_post,True,True,True
+10,log_curr_trans_ind_gov_pc,Government transfers per capita,post_9_10,9 to 10,hurr_9_10,fiscal,late_post,True,True,True
+11,log_curr_trans_ind_gov_pc,Government transfers per capita,far_post,>= 11,hurr_m,fiscal,late_post,True,True,True
+12,log_curr_trans_ind_bus_pc,Business transfers per capita,far_pre,<= -11,hurr_p,fiscal,pre,True,False,True
+13,log_curr_trans_ind_bus_pc,Business transfers per capita,pre_9_10,-10 to -9,hurr_f9_10,fiscal,pre,True,False,True
+14,log_curr_trans_ind_bus_pc,Business transfers per capita,pre_7_8,-8 to -7,hurr_f7_8,fiscal,pre,True,False,True
+15,log_curr_trans_ind_bus_pc,Business transfers per capita,pre_5_6,-6 to -5,hurr_f5_6,fiscal,pre,True,False,True
+16,log_curr_trans_ind_bus_pc,Business transfers per capita,pre_3_4,-4 to -3,hurr_f3_4,fiscal,pre,True,False,True
+17,log_curr_trans_ind_bus_pc,Business transfers per capita,event_0,0,hurricane,fiscal,early_post,True,True,True
+18,log_curr_trans_ind_bus_pc,Business transfers per capita,post_1_2,1 to 2,hurr_1_2,fiscal,early_post,True,True,True
+19,log_curr_trans_ind_bus_pc,Business transfers per capita,post_3_4,3 to 4,hurr_3_4,fiscal,early_post,True,True,True
+20,log_curr_trans_ind_bus_pc,Business transfers per capita,post_5_6,5 to 6,hurr_5_6,fiscal,late_post,True,True,True
+21,log_curr_trans_ind_bus_pc,Business transfers per capita,post_7_8,7 to 8,hurr_7_8,fiscal,late_post,True,True,True
+22,log_curr_trans_ind_bus_pc,Business transfers per capita,post_9_10,9 to 10,hurr_9_10,fiscal,late_post,True,True,True
+23,log_curr_trans_ind_bus_pc,Business transfers per capita,far_post,>= 11,hurr_m,fiscal,late_post,True,True,True
+24,log_avg_wage_sal_disb,Average wage/salary disbursements,far_pre,<= -11,hurr_p,labor,pre,False,False,True
+25,log_avg_wage_sal_disb,Average wage/salary disbursements,pre_9_10,-10 to -9,hurr_f9_10,labor,pre,False,False,True
+26,log_avg_wage_sal_disb,Average wage/salary disbursements,pre_7_8,-8 to -7,hurr_f7_8,labor,pre,False,False,True
+27,log_avg_wage_sal_disb,Average wage/salary disbursements,pre_5_6,-6 to -5,hurr_f5_6,labor,pre,False,False,True
+28,log_avg_wage_sal_disb,Average wage/salary disbursements,pre_3_4,-4 to -3,hurr_f3_4,labor,pre,False,False,True
+29,log_avg_wage_sal_disb,Average wage/salary disbursements,event_0,0,hurricane,labor,early_post,False,False,True
+30,log_avg_wage_sal_disb,Average wage/salary disbursements,post_1_2,1 to 2,hurr_1_2,labor,early_post,False,False,True
+31,log_avg_wage_sal_disb,Average wage/salary disbursements,post_3_4,3 to 4,hurr_3_4,labor,early_post,False,False,True
+32,log_avg_wage_sal_disb,Average wage/salary disbursements,post_5_6,5 to 6,hurr_5_6,labor,late_post,False,False,True
+33,log_avg_wage_sal_disb,Average wage/salary disbursements,post_7_8,7 to 8,hurr_7_8,labor,late_post,False,False,True
+34,log_avg_wage_sal_disb,Average wage/salary disbursements,post_9_10,9 to 10,hurr_9_10,labor,late_post,False,False,True
+35,log_avg_wage_sal_disb,Average wage/salary disbursements,far_post,>= 11,hurr_m,labor,late_post,False,False,True
+36,emp_rate_tot_adult,Employment rate,far_pre,<= -11,hurr_p,labor,pre,False,False,True
+37,emp_rate_tot_adult,Employment rate,pre_9_10,-10 to -9,hurr_f9_10,labor,pre,False,False,True
+38,emp_rate_tot_adult,Employment rate,pre_7_8,-8 to -7,hurr_f7_8,labor,pre,False,False,True
+39,emp_rate_tot_adult,Employment rate,pre_5_6,-6 to -5,hurr_f5_6,labor,pre,False,False,True
+40,emp_rate_tot_adult,Employment rate,pre_3_4,-4 to -3,hurr_f3_4,labor,pre,False,False,True
+41,emp_rate_tot_adult,Employment rate,event_0,0,hurricane,labor,early_post,False,False,True
+42,emp_rate_tot_adult,Employment rate,post_1_2,1 to 2,hurr_1_2,labor,early_post,False,False,True
+43,emp_rate_tot_adult,Employment rate,post_3_4,3 to 4,hurr_3_4,labor,early_post,False,False,True
+44,emp_rate_tot_adult,Employment rate,post_5_6,5 to 6,hurr_5_6,labor,late_post,False,False,True
+45,emp_rate_tot_adult,Employment rate,post_7_8,7 to 8,hurr_7_8,labor,late_post,False,False,True
+46,emp_rate_tot_adult,Employment rate,post_9_10,9 to 10,hurr_9_10,labor,late_post,False,False,True
+47,emp_rate_tot_adult,Employment rate,far_post,>= 11,hurr_m,labor,late_post,False,False,True
+48,log_unemp_pc,Unemployment insurance per capita,far_pre,<= -11,hurr_p,fiscal,pre,True,False,True
+49,log_unemp_pc,Unemployment insurance per capita,pre_9_10,-10 to -9,hurr_f9_10,fiscal,pre,True,False,True
+50,log_unemp_pc,Unemployment insurance per capita,pre_7_8,-8 to -7,hurr_f7_8,fiscal,pre,True,False,True
+51,log_unemp_pc,Unemployment insurance per capita,pre_5_6,-6 to -5,hurr_f5_6,fiscal,pre,True,False,True
+52,log_unemp_pc,Unemployment insurance per capita,pre_3_4,-4 to -3,hurr_f3_4,fiscal,pre,True,False,True
+53,log_unemp_pc,Unemployment insurance per capita,event_0,0,hurricane,fiscal,early_post,True,True,True
+54,log_unemp_pc,Unemployment insurance per capita,post_1_2,1 to 2,hurr_1_2,fiscal,early_post,True,True,True
+55,log_unemp_pc,Unemployment insurance per capita,post_3_4,3 to 4,hurr_3_4,fiscal,early_post,True,True,True
+56,log_unemp_pc,Unemployment insurance per capita,post_5_6,5 to 6,hurr_5_6,fiscal,late_post,True,True,True
+57,log_unemp_pc,Unemployment insurance per capita,post_7_8,7 to 8,hurr_7_8,fiscal,late_post,True,True,True
+58,log_unemp_pc,Unemployment insurance per capita,post_9_10,9 to 10,hurr_9_10,fiscal,late_post,True,True,True
+59,log_unemp_pc,Unemployment insurance per capita,far_post,>= 11,hurr_m,fiscal,late_post,True,True,True
+60,log_public_med_benefits_pc,Public medical benefits per capita,far_pre,<= -11,hurr_p,fiscal,pre,True,False,True
+61,log_public_med_benefits_pc,Public medical benefits per capita,pre_9_10,-10 to -9,hurr_f9_10,fiscal,pre,True,False,True
+62,log_public_med_benefits_pc,Public medical benefits per capita,pre_7_8,-8 to -7,hurr_f7_8,fiscal,pre,True,False,True
+63,log_public_med_benefits_pc,Public medical benefits per capita,pre_5_6,-6 to -5,hurr_f5_6,fiscal,pre,True,False,True
+64,log_public_med_benefits_pc,Public medical benefits per capita,pre_3_4,-4 to -3,hurr_f3_4,fiscal,pre,True,False,True
+65,log_public_med_benefits_pc,Public medical benefits per capita,event_0,0,hurricane,fiscal,early_post,True,True,True
+66,log_public_med_benefits_pc,Public medical benefits per capita,post_1_2,1 to 2,hurr_1_2,fiscal,early_post,True,True,True
+67,log_public_med_benefits_pc,Public medical benefits per capita,post_3_4,3 to 4,hurr_3_4,fiscal,early_post,True,True,True
+68,log_public_med_benefits_pc,Public medical benefits per capita,post_5_6,5 to 6,hurr_5_6,fiscal,late_post,True,True,True
+69,log_public_med_benefits_pc,Public medical benefits per capita,post_7_8,7 to 8,hurr_7_8,fiscal,late_post,True,True,True
+70,log_public_med_benefits_pc,Public medical benefits per capita,post_9_10,9 to 10,hurr_9_10,fiscal,late_post,True,True,True
+71,log_public_med_benefits_pc,Public medical benefits per capita,far_post,>= 11,hurr_m,fiscal,late_post,True,True,True

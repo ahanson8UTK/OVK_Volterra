@@ -1,0 +1,17 @@
+{
+  "paper_source_status": "No primary LaTeX manuscript was found in the workspace; generated fragments and inclusion snippets were written instead.",
+  "suggested_labels": [
+    "tab:ritz-certification-main",
+    "fig:macro-ritz-interval-spectrum",
+    "tab:hurricane-ritz-certification",
+    "fig:lalonde-ritz-validation"
+  ],
+  "source_metadata_keys": [
+    "config",
+    "interval_backend",
+    "max_interval_residual",
+    "outputs",
+    "paper_source_status",
+    "surfaces"
+  ]
+}

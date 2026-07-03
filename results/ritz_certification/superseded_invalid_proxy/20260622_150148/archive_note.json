@@ -1,0 +1,22 @@
+{
+  "reason": "Previous outputs used invalid rank-one macro proxy.",
+  "moved": [
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\ritz_certification_main.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\macro_ritz_interval_spectrum_data.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\macro_interval_spectrum.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\hurricane_ritz_certification.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\hurricane_ritz_certification_panel_a.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\hurricane_ritz_certification_panel_b.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\tables\\lalonde_ritz_validation_data.csv",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\figures\\macro_ritz_interval_spectrum.pdf",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\figures\\macro_ritz_interval_spectrum.png",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\figures\\lalonde_ritz_validation.pdf",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\figures\\lalonde_ritz_validation.png",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\latex\\tab_ritz_certification_main.tex",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\latex\\tab_hurricane_ritz_certification.tex",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\latex\\ritz_paper_insertions.tex",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\latex\\ritz_standalone_check.tex",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\metadata\\ritz_certification_metadata.json",
+    "results\\ritz_certification\\superseded_invalid_proxy\\20260622_150148\\metadata\\paper_integration_status.json"
+  ]
+}
