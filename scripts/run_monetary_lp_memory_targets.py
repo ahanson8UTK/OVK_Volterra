@@ -301,30 +301,70 @@ def plot_tau(df: pd.DataFrame, path: Path, title: str, label: str) -> None:
     plt.close(fig)
 
 
-def plot_selected_stress(result: Any, episodes: list[dict[str, Any]], H: int, labels: list[str], path: Path, title: str) -> None:
+def _short_episode_label(episode: Any) -> str:
+    label = str(episode).replace("_", " ").strip().lower()
+    replacements = {
+        "reference neutral full coordinate": "Neutral",
+        "reference neutral": "Neutral",
+        "max tau soft": "Peak tau",
+        "max full coordinate shape dispersion": "Peak shape",
+        "max shape dispersion": "Peak shape",
+        "march 2020": "Mar 2020",
+    }
+    return replacements.get(label, label.title())
+
+
+def plot_selected_stress(result: Any, episodes: list[dict[str, Any]], H: int, labels: list[str], path: Path, _title: str) -> None:
     pvars = len(labels)
     n = max(1, len(episodes))
-    ncols = min(n, 3)
+    if n <= 3:
+        ncols = n
+    elif n <= 4:
+        ncols = 2
+    else:
+        ncols = min(3, int(np.ceil(np.sqrt(n))))
     nrows = int(np.ceil(n / ncols))
     selected = np.vstack([result.cell_shape[ep["idx"]].reshape(H + 1, pvars) for ep in episodes])
     vmax = float(np.nanquantile(np.abs(selected), 0.98)) if selected.size else 1.0
     vmax = max(vmax, 0.25)
-    fig, axes = plt.subplots(nrows, ncols, figsize=(4.8 * ncols, 3.2 * nrows), squeeze=False)
+    fig, axes = plt.subplots(
+        nrows,
+        ncols,
+        figsize=(3.9 * ncols + 0.7, 2.95 * nrows + 0.25),
+        squeeze=False,
+        constrained_layout=True,
+    )
     image = None
     yticks = [h for h in [0, 3, 6, 12, 18, H] if h <= H]
-    for ax, ep in zip(axes.ravel(), episodes):
+    for i, (ax, ep) in enumerate(zip(axes.ravel(), episodes)):
         mat = result.cell_shape[ep["idx"]].reshape(H + 1, pvars)
         image = ax.imshow(mat, aspect="auto", origin="lower", cmap="coolwarm", vmin=-vmax, vmax=vmax)
-        ax.set_title(f"{ep['episode'].replace('_', ' ')}: {ep['date']}")
-        ax.set_xticks(np.arange(pvars), labels, rotation=28, ha="right")
+        date_label = pd.to_datetime(ep["date"]).strftime("%Y-%m")
+        ax.set_title(f"{date_label}\n{_short_episode_label(ep['episode'])}", fontsize=9, pad=4)
+        row = i // ncols
+        col = i % ncols
+        show_x = row == nrows - 1
+        show_y = col == 0
+        ax.set_xticks(np.arange(pvars))
+        if show_x:
+            ax.set_xticklabels(labels, rotation=32, ha="right", fontsize=8)
+        else:
+            ax.set_xticklabels([])
         ax.set_yticks(yticks)
-        ax.set_ylabel("Horizon")
+        if show_y:
+            ax.set_ylabel("Horizon", fontsize=9)
+            ax.tick_params(axis="y", labelsize=8)
+        else:
+            ax.set_yticklabels([])
+            ax.tick_params(axis="y", length=0)
+        ax.tick_params(axis="x", labelsize=8)
     for ax in axes.ravel()[len(episodes) :]:
         ax.axis("off")
     if image is not None:
-        fig.colorbar(image, ax=axes.ravel().tolist(), shrink=0.78, label="log cell_amp / tau_soft")
-    fig.suptitle(title)
-    fig.savefig(path, dpi=180, bbox_inches="tight")
+        colorbar = fig.colorbar(image, ax=axes.ravel()[: len(episodes)].tolist(), shrink=0.9)
+        colorbar.set_label("log relative cell stress", fontsize=9)
+        colorbar.ax.tick_params(labelsize=8)
+    fig.savefig(path, dpi=180, bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
 
 
