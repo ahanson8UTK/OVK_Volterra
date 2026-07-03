@@ -1,0 +1,5 @@
+surface,threshold,median_d_star,max_d_star,share_cells_positive,max_generalized_residual,solver_backend
+72-coordinate full event-study surface,2.0,10.0,23,0.958974358974359,3.2156445682912184e-13,dense_generalized_eigh
+72-coordinate full event-study surface,4.0,3.0,12,0.8358974358974359,3.2156445682912184e-13,dense_generalized_eigh
+48-coordinate fiscal event-study surface,2.0,6.0,17,0.8564102564102564,4.0911022731367576e-13,dense_generalized_eigh
+48-coordinate fiscal event-study surface,4.0,2.0,8,0.6153846153846154,4.0911022731367576e-13,dense_generalized_eigh

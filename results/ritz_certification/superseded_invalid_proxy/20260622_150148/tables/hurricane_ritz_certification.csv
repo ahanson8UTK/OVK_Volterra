@@ -1,0 +1,11 @@
+surface,rank,reference_covariance_trace_share,omitted_probe_mass,p95_residual_term,max_certificate,max_exact_error,panel,threshold,median_d_star,max_d_star,share_cells_positive,max_generalized_residual,solver_backend
+72-coordinate full event-study surface,5.0,0.6025731585524929,0.3389319520105424,2.715925452011842,1.0,0.21433262812442677,A,,,,,,
+72-coordinate full event-study surface,10.0,0.7234469220689217,0.241288784134436,4.297599710624351,1.0,0.14388633716663002,A,,,,,,
+72-coordinate full event-study surface,15.0,0.8072422371897897,0.13082600340082362,3.9705428710922326,1.0,0.0650899832785482,A,,,,,,
+48-coordinate fiscal event-study surface,5.0,0.6468290912051757,0.8886576432815337,1.992538025865203,1.0,0.4363792055564708,A,,,,,,
+48-coordinate fiscal event-study surface,10.0,0.795879430126394,0.7775529545647336,3.2356668551585828,1.0,0.38926781100941565,A,,,,,,
+48-coordinate fiscal event-study surface,15.0,0.8968503827195157,0.6666713913936471,4.318469512719959,1.0,0.3255927701755168,A,,,,,,
+72-coordinate full event-study surface,,,,,,,B,2.0,10.0,23.0,0.958974358974359,3.2156445682912184e-13,dense_generalized_eigh
+72-coordinate full event-study surface,,,,,,,B,4.0,3.0,12.0,0.8358974358974359,3.2156445682912184e-13,dense_generalized_eigh
+48-coordinate fiscal event-study surface,,,,,,,B,2.0,6.0,17.0,0.8564102564102564,4.0911022731367576e-13,dense_generalized_eigh
+48-coordinate fiscal event-study surface,,,,,,,B,4.0,2.0,8.0,0.6153846153846154,4.0911022731367576e-13,dense_generalized_eigh

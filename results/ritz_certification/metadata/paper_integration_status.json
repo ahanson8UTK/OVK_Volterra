@@ -1,0 +1,15 @@
+{
+  "paper_source_status": "No primary LaTeX manuscript was found in the workspace; generated fragments and inclusion snippets were written instead.",
+  "source_metadata_keys": [
+    "config",
+    "git_commit",
+    "git_commit_status",
+    "interval_backend",
+    "max_interval_residual",
+    "outputs",
+    "paper_source_status",
+    "previous_invalid_proxy_archive",
+    "surfaces",
+    "validation_provenance"
+  ]
+}

@@ -1,0 +1,4 @@
+application,probe,p,display_R,retained_probe_mass,p95_exact_error,max_exact_error,max_ritz_bound
+LaLonde ATE,overall ATE direction,11,5,0.9989906012712827,0.007235040278103005,0.01128238198489434,0.8047878481420462
+Hurricane full fiscal/post probe,fiscal/post block probe,72,5,0.6610680479894576,0.17754474680906387,0.21433262812442677,1.0
+Hurricane full fiscal/post probe,fiscal/post block probe,72,15,0.8691739965991764,0.056366786459384956,0.0650899832785482,1.0

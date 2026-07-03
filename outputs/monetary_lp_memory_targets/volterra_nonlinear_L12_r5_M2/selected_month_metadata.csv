@@ -1,0 +1,4 @@
+episode,date,tau_soft,full_coordinate_shape_rms_log_relative
+reference_neutral_full_coordinate,2000-08,1.3396628058194286,0.7585902207333237
+max_tau_soft+march_2020,2020-03,1.775551020832432,1.9273337546817981
+max_full_coordinate_shape_dispersion,2013-04,0.7617263547644908,2.716021998301193

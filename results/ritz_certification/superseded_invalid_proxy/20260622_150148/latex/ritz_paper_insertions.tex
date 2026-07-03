@@ -1,0 +1,26 @@
+% Main empirical-section paragraph.
+Ordinary explained covariance is useful descriptive evidence, but it is not by itself a certificate for a stress functional. Table~\ref{tab:ritz-certification-main} therefore reports both the exact full-coordinate approximation error and the Ritz upper bound for the principal probe in each application at $\lambda_0=1$. The certified rank is probe- and stress-scale-specific: it is the smallest rank for which the maximum deterministic approximation certificate over the reported state set falls below the stated tolerance. All calculations use the same ridge-relative operator, so the rank-$R$ compression uses $(\Lambda_R+\rho I)^{-1/2}$ rather than an unregularized whitening. These bounds are conditional on the estimated covariance operators and do not represent sampling-confidence intervals.
+
+% Application cross-references.
+The monetary-policy appendix reports full-coordinate and rank-five stress curves, severe-direction counts, and rank-five capture of high-stress eigenspaces in Figure~\ref{fig:macro-ritz-interval-spectrum}.
+The LaLonde appendix validates the Ritz bound directly against the exact 11-coordinate error in Figure~\ref{fig:lalonde-ritz-validation}.
+The hurricane subsection reports whether severe amplification is concentrated in one direction or spread over multiple independent directions using Table~\ref{tab:hurricane-ritz-certification}.
+
+% Appendix inclusions.
+\input{results/ritz_certification/latex/tab_ritz_certification_main.tex}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/macro_ritz_interval_spectrum.pdf}
+\caption{Macro Ritz stress and interval-spectrum diagnostics. Notes: rank-five stress uses the Ritz matrix from the same ridge-relative operator. Severe-direction counts record generalized eigenvalues above two-times or four-times reference amplification. The ridge parameter, interval backend, and maximum residual are recorded in \texttt{results/ritz_certification/metadata/ritz_certification_metadata.json}.}
+\label{fig:macro-ritz-interval-spectrum}
+\end{figure}
+
+\input{results/ritz_certification/latex/tab_hurricane_ritz_certification.tex}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/lalonde_ritz_validation.pdf}
+\caption{LaLonde Ritz-bound validation. The low-dimensional LaLonde application permits direct comparison of the exact full-coordinate rank-five error with the deterministic certificate at every plotted propensity-score support point.}
+\label{fig:lalonde-ritz-validation}
+\end{figure}

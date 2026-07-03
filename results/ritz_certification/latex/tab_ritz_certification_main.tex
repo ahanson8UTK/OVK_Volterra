@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\centering
+\caption{Finite-rank approximation errors and Ritz bounds}
+\label{tab:ritz-certification-main}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Application & Probe & $p$ & $R$ & Retained mass & p95 $e_R$ & $\max e_R$ & $\max B_R$ \\
+\midrule
+LaLonde ATE & overall ATE direction & 11 & 5 & 0.999 & 0.007 & 0.011 & 0.805 \\
+Hurricane full fiscal/post probe & fiscal/post block probe & 72 & 5 & 0.661 & 0.178 & 0.214 & 1.000 (vacuous) \\
+Hurricane full fiscal/post probe & fiscal/post block probe & 72 & 15 & 0.869 & 0.056 & 0.065 & 1.000 (vacuous) \\
+\bottomrule
+\end{tabular}
+}
+\begin{minipage}{0.96\linewidth}
+\footnotesize Notes: $e_R$ is the exact full-coordinate stress approximation error at $\lambda_0=1$ and $B_R$ is the capped deterministic Ritz bound. The macro row uses the full-space temporal-resolvent benchmark built from 125-dimensional pre-PCA influence contributions; it is not a full-dimensional latent state-space estimate. Bounds are conditional on the estimated regularized covariance operators.
+\end{minipage}
+\end{table}

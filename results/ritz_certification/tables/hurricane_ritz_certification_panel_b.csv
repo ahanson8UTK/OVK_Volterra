@@ -1,0 +1,5 @@
+surface,probe,p,threshold,median_d,max_d,share_d_gt_0,median_kappa_conditional,p90_kappa_conditional,max_generalized_eigenpair_residual,solver_backend
+72-coordinate full event-study surface,not probe-specific,72,2.0,10.0,23,0.958974358974359,0.012509609191118846,0.14425488059682523,3.2211899777004736e-13,scipy.linalg.eigh subset_by_value
+72-coordinate full event-study surface,not probe-specific,72,4.0,3.0,12,0.8358974358974359,0.0061561734829429695,0.3011966775449726,3.2211899777004736e-13,scipy.linalg.eigh subset_by_value
+28-coordinate fiscal/post event-study surface,not probe-specific,28,2.0,2.0,15,0.6205128205128205,0.10774396880821714,0.33659885548546103,1.3682523674344762e-13,scipy.linalg.eigh subset_by_value
+28-coordinate fiscal/post event-study surface,not probe-specific,28,4.0,0.0,7,0.441025641025641,0.22558395688820398,0.6854719303477457,1.3682523674344762e-13,scipy.linalg.eigh subset_by_value

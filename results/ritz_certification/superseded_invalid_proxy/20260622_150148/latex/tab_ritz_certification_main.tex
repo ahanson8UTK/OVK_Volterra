@@ -1,0 +1,17 @@
+\begin{table}[!htbp]
+\centering
+\caption{Empirical Ritz approximation certificates}
+\label{tab:ritz-certification-main}
+\begin{tabular}{llrrrrrr}
+\toprule
+Application & Principal probe & $p$ & $R$ & $\max e_R$ & $\max B_R$ & $R_{0.10}$ & $R_{0.05}$ \\
+\midrule
+Macro / monetary policy & whole-surface soft probe & 125 & 5 & 0.028 & 1.000 & 125 & 125 \\
+LaLonde & overall ATE direction & 11 & 5 & 0.011 & 0.805 & 11 & 11 \\
+Hurricane & fiscal post-treatment block & 72 & 5 & 0.214 & 1.000 & 72 & 72 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.96\linewidth}
+\footnotesize Notes: The certificate is deterministic conditional on the estimated regularized covariance operators and is not a sampling-confidence bound. $R_\epsilon$ is the smallest rank for which the maximum certificate over reported states is at most $\epsilon$ at $\lambda_0=1$. Rank-$R$ calculations use $(\Lambda_R+\rho I)^{-1/2}$ from the same ridge-relative operator, not legacy unregularized whitening. State masks follow the published effective-sample or support restrictions recorded in the companion metadata.
+\end{minipage}
+\end{table}

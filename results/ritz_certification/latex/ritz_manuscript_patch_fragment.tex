@@ -1,0 +1,164 @@
+% Self-contained manuscript patch fragment for the Ritz-certification revision.
+% This repository snapshot does not contain a primary manuscript root; integrate
+% this fragment into the source root used by the paper build.
+\input{results/ritz_certification/latex/ritz_result_macros.tex}
+
+\subsection{Bounded Stress Diagnostics}
+\label{sec:bounded-stress-diagnostics}
+
+Let $\widehat D=\widehat C+\rho I$ and
+$\widehat A_\rho(s)=\widehat D^{-1/2}\widehat K(s)\widehat D^{-1/2}$.
+For a positive trace-one probe $Q$ and $\lambda>0$, define
+$f_\lambda(a)=a/(\lambda+a)$ and
+\[
+  \widehat q_{\lambda,Q}(s)
+  =
+  \operatorname{tr}\{Q f_\lambda(\widehat A_\rho(s))\}.
+\]
+This bounded stress diagnostic is the population object for display. A
+finite-rank display is a numerical and interpretive approximation to the same
+ridge-relative operator, not a distinct population construction.
+
+Let $P$ be an orthogonal projection and
+$\widehat q^P_{\lambda,Q}(s)=
+\operatorname{tr}\{Q P f_\lambda(P\widehat A_\rho(s)P)P\}$. Then
+\begin{equation}
+\boxed{
+\left|
+\widehat q_{\lambda,Q}(s)-\widehat q^P_{\lambda,Q}(s)
+\right|
+\le
+\operatorname{tr}\{Q(I-P)\}
++
+\frac{\|(I-P)\widehat A_\rho(s)P\|}{\lambda}.
+}
+\label{eq:ritz-stress-bound}
+\end{equation}
+The first term is omitted probe mass: it is small only when the displayed
+subspace contains the directions to which $Q$ assigns mass. The second term is
+the Ritz subspace residual: it vanishes when the selected subspace is invariant
+for the local ridge-relative operator. Both terms depend on $Q$ and $\lambda$,
+so explained unconditional covariance is not by itself a stress certificate.
+The proof appears in Appendix~\ref{app:ritz-bound-proof}.
+
+At the dimensions considered here, we use generalized Hermitian interval
+extraction through \texttt{scipy.linalg.eigh(..., subset\_by\_value=...)} and
+verify selected counts against the exact dense generalized spectrum. FEAST,
+rational Krylov, and shift-and-invert methods target the same spectral
+projectors in larger problems; no FEAST computation is used in the empirical
+results reported here.
+
+\paragraph{Empirical Ritz results.}
+Table~\ref{tab:ritz-certification-main} reports exact finite-rank approximation
+errors and generic Ritz upper bounds. The generic bound is conservative because
+it controls worst-case cross-subspace coupling; a capped value of one is valid
+but empirically vacuous. In the generated results, the LaLonde ATE rank-five
+error is \RitzMainLalondeMaxExactError, while the corresponding generic bound is
+\RitzMainLalondeMaxBound. The hurricane rank-five error is materially larger
+(\RitzMainHurricaneR5MaxExactError), supporting the use of rank-five output as
+an interpretive display rather than a stand-alone certification. Rank-five
+adequacy is probe-specific: a small ATE-probe error does not establish adequacy
+for every LaLonde probe.
+
+\input{results/ritz_certification/latex/tab_ritz_certification_main.tex}
+
+The hurricane principal figure uses the true
+\RitzHurricaneFiscalPostDimension-coordinate fiscal/post surface. The highest
+amplification cell is \RitzHurricaneTopRegion{} in \RitzHurricaneTopYear{}
+with $\tau=\RitzHurricaneTopTau$. Severe-direction counts distinguish
+concentrated fragility from multidimensional fragility. Severe-subspace capture
+measures whether covariance-PCA contains those directions; low capture means
+the largest ridge-relative amplification directions lie outside the dominant
+unconditional covariance modes.
+
+\input{results/ritz_certification/latex/tab_hurricane_ritz_certification.tex}
+
+The macro appendix is a full-space temporal-resolvent benchmark with
+$p=\RitzMacroP$, not a full-dimensional latent state-space fit. Eta is selected
+by \RitzMacroValidationCriterion; the selected value is \RitzMacroEta{} and is
+classified as \RitzMacroEtaBoundary{} on the generated grid.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/macro_ritz_interval_spectrum.pdf}
+\caption{Macro Ritz stress and interval-spectrum diagnostics. The full calculation is a 125-dimensional temporal-resolvent benchmark. The rank-five curve is the rank-five Ritz approximation to the same full soft-probe stress. Amplification thresholds are ridge-adjusted relative to $\widehat C+\rho I$. The interval-spectrum backend is generalized Hermitian interval extraction; the maximum generalized-eigenpair residual is \RitzMaxGeneralizedEigenpairResidual.}
+\label{fig:macro-ritz-interval-spectrum}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/lalonde_ritz_validation.pdf}
+\caption{LaLonde Ritz-bound validation. The low-dimensional application permits exact calculation of full-versus-rank-five error for the overall ATE, prior-earnings, and education probes. The generic bound is verified and conservative because it controls worst-case cross-subspace coupling. All quantities are deterministic conditional on the estimated covariance operators.}
+\label{fig:lalonde-ritz-validation}
+\end{figure}
+
+\section{Spectral Compression for Interpretation}
+\label{app:spectral-compression-interpretation}
+
+Let $\widehat C=V\Lambda V'$ with eigenvalues in descending order and
+$V_R=V[:,1\!:\!R]$. The finite-rank Ritz matrix is
+\[
+  \Theta_R(s)=V_R'\widehat A_\rho(s)V_R
+  =
+  (\Lambda_R+\rho I)^{-1/2}
+  V_R'\widehat K(s)V_R
+  (\Lambda_R+\rho I)^{-1/2}.
+\]
+The empirical code asserts this identity numerically. The approximation
+$\operatorname{tr}\{(V_R' Q V_R) f_\lambda(\Theta_R(s))\}$ is therefore a
+Galerkin/Ritz display of the same ridge-relative stress operator.
+
+\subsection{Ritz residual certification}
+\label{app:ritz-residual-certification}
+
+For $P_R=V_RV_R'$, the Ritz subspace residual is
+$\operatorname{Residual}_R(s)=\widehat A_\rho(s)V_R-V_R\Theta_R(s)$ and
+$r_R(s)=\|\operatorname{Residual}_R(s)\|_2$. The generic bound used in the
+tables is
+\[
+  B_R(s;\lambda,Q)
+  =
+  \min\left\{1,\,
+  1-\operatorname{tr}(V_R'QV_R)+r_R(s)/\lambda
+  \right\}.
+\]
+The empirical validation metadata reports maximum Ritz identity error
+\RitzMaxIdentityError{} and maximum certificate violation
+\RitzMaxCertificateViolation.
+
+\subsection{Proof of the Ritz stress bound}
+\label{app:ritz-bound-proof}
+
+Let $A=\widehat A_\rho(s)$ and decompose the space as
+$P\mathcal H\oplus(I-P)\mathcal H$. Let
+$A_0=PAP+(I-P)A(I-P)$ be the block-diagonal part of $A$. Since
+$f_\lambda(x)=x(\lambda+x)^{-1}=I-\lambda(\lambda I+x)^{-1}$ is a positive
+contraction on positive semidefinite operators,
+$0\le f_\lambda((I-P)A(I-P))\le I-P$. Thus, without assuming that $Q$ commutes
+with $P$,
+\[
+\left|
+\operatorname{tr}\{Q f_\lambda(A_0)\}
+-
+\operatorname{tr}\{Q P f_\lambda(PAP)P\}
+\right|
+\le
+\operatorname{tr}\{Q(I-P)\}.
+\]
+For the remaining term, the resolvent identity gives
+\[
+f_\lambda(A)-f_\lambda(A_0)
+=
+\lambda(\lambda I+A)^{-1}(A-A_0)(\lambda I+A_0)^{-1}.
+\]
+Both resolvents have norm at most $1/\lambda$, and
+$A-A_0=(I-P)AP+PA(I-P)$ has norm $\|(I-P)AP\|$. Hence
+\[
+\|f_\lambda(A)-f_\lambda(A_0)\|
+\le
+\|(I-P)AP\|/\lambda.
+\]
+Because $Q$ is positive with trace one,
+$|\operatorname{tr}\{Q[f_\lambda(A)-f_\lambda(A_0)]\}|
+\le \|f_\lambda(A)-f_\lambda(A_0)\|$. Combining the two inequalities proves
+Equation~\eqref{eq:ritz-stress-bound}.

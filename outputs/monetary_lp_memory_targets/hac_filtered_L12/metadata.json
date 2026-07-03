@@ -1,0 +1,1112 @@
+{
+  "target_type": "hac_filtered",
+  "score_source": "C:\\Users\\ahanson8\\Documents\\OVK_Volterra\\OVK_Volterra\\data_processed\\processed_panel_three_shock_definitions.csv",
+  "missing_empirical_data": [],
+  "score_matrix_shape": [
+    371,
+    125
+  ],
+  "filtered_score_shape": [
+    359,
+    125
+  ],
+  "date_range": "1993-11-01 to 2023-09-01",
+  "panel_date_range": "1991-10-01 to 2026-04-01",
+  "p": 125,
+  "coordinate_map": [
+    {
+      "coordinate": 0,
+      "horizon_months": 0,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 1,
+      "horizon_months": 0,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 2,
+      "horizon_months": 0,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 3,
+      "horizon_months": 0,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 4,
+      "horizon_months": 0,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 5,
+      "horizon_months": 1,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 6,
+      "horizon_months": 1,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 7,
+      "horizon_months": 1,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 8,
+      "horizon_months": 1,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 9,
+      "horizon_months": 1,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 10,
+      "horizon_months": 2,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 11,
+      "horizon_months": 2,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 12,
+      "horizon_months": 2,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 13,
+      "horizon_months": 2,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 14,
+      "horizon_months": 2,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 15,
+      "horizon_months": 3,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 16,
+      "horizon_months": 3,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 17,
+      "horizon_months": 3,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 18,
+      "horizon_months": 3,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 19,
+      "horizon_months": 3,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 20,
+      "horizon_months": 4,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 21,
+      "horizon_months": 4,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 22,
+      "horizon_months": 4,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 23,
+      "horizon_months": 4,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 24,
+      "horizon_months": 4,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 25,
+      "horizon_months": 5,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 26,
+      "horizon_months": 5,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 27,
+      "horizon_months": 5,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 28,
+      "horizon_months": 5,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 29,
+      "horizon_months": 5,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 30,
+      "horizon_months": 6,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 31,
+      "horizon_months": 6,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 32,
+      "horizon_months": 6,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 33,
+      "horizon_months": 6,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 34,
+      "horizon_months": 6,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 35,
+      "horizon_months": 7,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 36,
+      "horizon_months": 7,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 37,
+      "horizon_months": 7,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 38,
+      "horizon_months": 7,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 39,
+      "horizon_months": 7,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 40,
+      "horizon_months": 8,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 41,
+      "horizon_months": 8,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 42,
+      "horizon_months": 8,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 43,
+      "horizon_months": 8,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 44,
+      "horizon_months": 8,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 45,
+      "horizon_months": 9,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 46,
+      "horizon_months": 9,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 47,
+      "horizon_months": 9,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 48,
+      "horizon_months": 9,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 49,
+      "horizon_months": 9,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 50,
+      "horizon_months": 10,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 51,
+      "horizon_months": 10,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 52,
+      "horizon_months": 10,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 53,
+      "horizon_months": 10,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 54,
+      "horizon_months": 10,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 55,
+      "horizon_months": 11,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 56,
+      "horizon_months": 11,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 57,
+      "horizon_months": 11,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 58,
+      "horizon_months": 11,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 59,
+      "horizon_months": 11,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 60,
+      "horizon_months": 12,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 61,
+      "horizon_months": 12,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 62,
+      "horizon_months": 12,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 63,
+      "horizon_months": 12,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 64,
+      "horizon_months": 12,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 65,
+      "horizon_months": 13,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 66,
+      "horizon_months": 13,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 67,
+      "horizon_months": 13,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 68,
+      "horizon_months": 13,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 69,
+      "horizon_months": 13,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 70,
+      "horizon_months": 14,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 71,
+      "horizon_months": 14,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 72,
+      "horizon_months": 14,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 73,
+      "horizon_months": 14,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 74,
+      "horizon_months": 14,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 75,
+      "horizon_months": 15,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 76,
+      "horizon_months": 15,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 77,
+      "horizon_months": 15,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 78,
+      "horizon_months": 15,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 79,
+      "horizon_months": 15,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 80,
+      "horizon_months": 16,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 81,
+      "horizon_months": 16,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 82,
+      "horizon_months": 16,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 83,
+      "horizon_months": 16,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 84,
+      "horizon_months": 16,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 85,
+      "horizon_months": 17,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 86,
+      "horizon_months": 17,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 87,
+      "horizon_months": 17,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 88,
+      "horizon_months": 17,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 89,
+      "horizon_months": 17,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 90,
+      "horizon_months": 18,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 91,
+      "horizon_months": 18,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 92,
+      "horizon_months": 18,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 93,
+      "horizon_months": 18,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 94,
+      "horizon_months": 18,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 95,
+      "horizon_months": 19,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 96,
+      "horizon_months": 19,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 97,
+      "horizon_months": 19,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 98,
+      "horizon_months": 19,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 99,
+      "horizon_months": 19,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 100,
+      "horizon_months": 20,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 101,
+      "horizon_months": 20,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 102,
+      "horizon_months": 20,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 103,
+      "horizon_months": 20,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 104,
+      "horizon_months": 20,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 105,
+      "horizon_months": 21,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 106,
+      "horizon_months": 21,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 107,
+      "horizon_months": 21,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 108,
+      "horizon_months": 21,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 109,
+      "horizon_months": 21,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 110,
+      "horizon_months": 22,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 111,
+      "horizon_months": 22,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 112,
+      "horizon_months": 22,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 113,
+      "horizon_months": 22,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 114,
+      "horizon_months": 22,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 115,
+      "horizon_months": 23,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 116,
+      "horizon_months": 23,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 117,
+      "horizon_months": 23,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 118,
+      "horizon_months": 23,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 119,
+      "horizon_months": 23,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 120,
+      "horizon_months": 24,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 121,
+      "horizon_months": 24,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 122,
+      "horizon_months": 24,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 123,
+      "horizon_months": 24,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 124,
+      "horizon_months": 24,
+      "outcome": "BAA-10Y spread"
+    }
+  ],
+  "outcomes": [
+    "IP",
+    "CPI",
+    "Unemployment",
+    "2Y yield",
+    "BAA-10Y spread"
+  ],
+  "outcome_columns": [
+    "ip",
+    "cpi",
+    "unrate",
+    "gs2",
+    "baa10y"
+  ],
+  "horizons": [
+    0,
+    24
+  ],
+  "L": 12,
+  "time_bandwidth": 0.08,
+  "feature_bandwidth": null,
+  "volterra_half_lives": null,
+  "volterra_level": null,
+  "projection_rank_r": null,
+  "pca_feature_dimension": null,
+  "rho": 3.430811450796741e-08,
+  "d_rho": 124.98461517405121,
+  "reference_rule": "empirical",
+  "min_ess": 7.141428428542853,
+  "median_ess": 14.00818653291097,
+  "max_ess": 14.008186532910972,
+  "min_normalized_ess": 0.01989255829677674,
+  "median_normalized_ess": 0.0390200181975236,
+  "max_normalized_ess": 0.03902001819752361,
+  "PSD_diagnostics": {
+    "K_by_state": {
+      "n_matrices": 359,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": -2.6592855162033826e-14,
+      "median_min_eigenvalue": 9.350269191485368e-13,
+      "max_min_eigenvalue": 8.87105856488483e-12,
+      "tol": 1e-08,
+      "ok": true
+    },
+    "C_ref": {
+      "n_matrices": 1,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": 1.1955176886036744e-05,
+      "median_min_eigenvalue": 1.1955176886036744e-05,
+      "max_min_eigenvalue": 1.1955176886036744e-05,
+      "tol": 1e-08,
+      "ok": true
+    }
+  },
+  "normalization_diagnostics": {
+    "uniform_state_average_tau_soft": 1.0000000000000828,
+    "uniform_state_average_tau_soft_error": 8.282263763703668e-14,
+    "mean_K_matches_C_ref_fro_relative": 3.459561727073829e-16
+  },
+  "package_versions": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.3",
+    "matplotlib": "3.10.1",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.8.0"
+  },
+  "target_metadata": {
+    "target_type": "hac_filtered",
+    "score_shape": [
+      371,
+      125
+    ],
+    "filtered_score_shape": [
+      359,
+      125
+    ],
+    "time_kernel": "graph_resolvent",
+    "time_bandwidth": 0.08,
+    "reference_rule": "empirical",
+    "reference_weights": [
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262,
+      0.002785515320334262
+    ],
+    "L": 12,
+    "filter": "bartlett_factor",
+    "filter_weights": [
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146
+    ],
+    "drop_initial": true,
+    "boundary_renormalize": false,
+    "valid_count": 359
+  },
+  "score_metadata": {
+    "shock_col": "MP_median_fallback",
+    "cbi_col": "CBI_median_fallback",
+    "sigma_m2": 0.6081419151729581,
+    "valid_idx_min": 13,
+    "valid_idx_max": 383
+  },
+  "note": "This target is a diagnostic moment field, not a time-varying causal effect."
+}

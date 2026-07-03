@@ -1,0 +1,29 @@
+% Main empirical-section paragraph.
+Table~\ref{tab:ritz-certification-main} reports finite-rank approximation errors and Ritz bounds for the principal stress probe in each application at $\lambda_0=1$. The exact error column compares the rank-$R$ Ritz approximation with the full-coordinate stress statistic. The Ritz bound is a deterministic certification bound conditional on the estimated covariance operators. It is intentionally conservative: it combines omitted probe mass with a residual term for the Ritz subspace and is capped at one, so entries marked as vacuous should not be read as evidence that the approximation error is large.
+
+The rows are probe-specific. A low-rank approximation can be accurate for one stress probe while remaining uncertified or inaccurate for another. This is especially important in the hurricane appendix, where the 72-dimensional full-surface rows use a fiscal/post block probe, whereas the restricted 28-dimensional fiscal/post rows use the restricted surface's whole-surface soft probe.
+
+The macro benchmark is a full-space temporal-resolvent benchmark, $K_\eta(t)=\sum_j W_{\eta,tj}\chi_j\chi_j'$, rebuilt from the original 125-dimensional pre-PCA influence contributions. It is not a full-dimensional latent state-space fit. The stress curves in Figure~\ref{fig:macro-ritz-interval-spectrum} use the ridge-adjusted reference scale. Dashed curves are unnormalized rank-five Ritz approximations to the full $Q_\rho$ stress, not legacy trace-normalized rank-five stress statistics.
+
+The temporal-resolvent smoothing parameter is selected by blocked predictive Gaussian quasi-likelihood on the saved eta grid. The metadata reports whether the selected value is an interior or boundary solution and lists the best neighboring candidates. Severe-direction counts, Ritz errors, subspace capture, and plotted stress variation are reported only after selection and do not enter the eta criterion.
+
+Severe-direction diagnostics ask a different question from stress approximation. They count generalized eigen-directions whose ridge-adjusted amplification exceeds a threshold and then report how much of those eigenspaces is captured by the leading empirical covariance subspace. Low capture means that high-amplification directions are geometrically different from the leading covariance directions, even when exact low-rank stress errors appear moderate.
+
+% Appendix inclusions.
+\input{results/ritz_certification/latex/tab_ritz_certification_main.tex}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/macro_ritz_interval_spectrum.pdf}
+\caption{Macro Ritz stress and interval-spectrum diagnostics. Notes: the full calculation is a 125-dimensional temporal-resolvent benchmark, not a full-dimensional version of the nonlinear rank-five latent state-space model. Eta is selected by blocked predictive Gaussian quasi-likelihood on held-out full influence vectors; the metadata reports whether the selected value is a boundary solution. The rank-five curve compresses the same ridge-relative operator. Amplification thresholds are relative to $\widehat C+\rho I$ and are therefore ridge-adjusted. The interval-spectrum backend is \texttt{scipy.linalg.eigh(..., subset\_by\_value=...)}, with the maximum generalized-eigenpair residual reported in metadata.}
+\label{fig:macro-ritz-interval-spectrum}
+\end{figure}
+
+\input{results/ritz_certification/latex/tab_hurricane_ritz_certification.tex}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.96\linewidth]{results/ritz_certification/figures/lalonde_ritz_validation.pdf}
+\caption{LaLonde Ritz-bound validation. The lower row uses a log scale so the exact rank-five errors remain visible against the deterministic Ritz certificates.}
+\label{fig:lalonde-ritz-validation}
+\end{figure}
