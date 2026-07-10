@@ -1,0 +1,37 @@
+date,selection_reason,route_row,route_column,omega_bar
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,D,D,1.0
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,D,H,0.6181669956092105
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,D,V,0.6173323430706291
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,H,D,0.6181669956092105
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,H,H,1.0
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,H,V,0.9994719492401103
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,V,D,0.6173323430706291
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,V,H,0.9994719492401103
+2009-02-01,max rotation Diagonal vs HAC; max rotation Diagonal vs Hilbert-Volterra,V,V,1.0
+2019-06-01,max tau Diagonal,D,D,1.0
+2019-06-01,max tau Diagonal,D,H,0.6730453746914804
+2019-06-01,max tau Diagonal,D,V,0.6673201172898288
+2019-06-01,max tau Diagonal,H,D,0.6730453746914804
+2019-06-01,max tau Diagonal,H,H,1.0
+2019-06-01,max tau Diagonal,H,V,0.998736207576077
+2019-06-01,max tau Diagonal,V,D,0.6673201172898288
+2019-06-01,max tau Diagonal,V,H,0.998736207576077
+2019-06-01,max tau Diagonal,V,V,1.0
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,D,D,1.0
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,D,H,0.67024985454947
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,D,V,0.6673231422156609
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,H,D,0.67024985454947
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,H,H,1.0
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,H,V,0.9988408805993058
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,V,D,0.6673231422156609
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,V,H,0.9988408805993058
+2019-10-01,max tau HAC; max tau Hilbert-Volterra,V,V,1.0
+2020-05-01,max rotation HAC vs Hilbert-Volterra,D,D,1.0
+2020-05-01,max rotation HAC vs Hilbert-Volterra,D,H,0.683769925536089
+2020-05-01,max rotation HAC vs Hilbert-Volterra,D,V,0.6877516262754091
+2020-05-01,max rotation HAC vs Hilbert-Volterra,H,D,0.683769925536089
+2020-05-01,max rotation HAC vs Hilbert-Volterra,H,H,1.0
+2020-05-01,max rotation HAC vs Hilbert-Volterra,H,V,0.9983939255484476
+2020-05-01,max rotation HAC vs Hilbert-Volterra,V,D,0.6877516262754091
+2020-05-01,max rotation HAC vs Hilbert-Volterra,V,H,0.9983939255484476
+2020-05-01,max rotation HAC vs Hilbert-Volterra,V,V,1.0

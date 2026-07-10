@@ -1,0 +1,4 @@
+,tau_soft_diagonal_old,tau_soft_hac_filtered,tau_soft_hilbert_volterra
+tau_soft_diagonal_old,1.0,0.7361882866769847,0.7425633066868881
+tau_soft_hac_filtered,0.7361882866769847,1.0,0.9995202614306744
+tau_soft_hilbert_volterra,0.7425633066868881,0.9995202614306744,1.0

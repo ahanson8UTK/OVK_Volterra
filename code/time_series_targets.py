@@ -8,6 +8,7 @@ Volterra history features.
 from __future__ import annotations
 
 import math
+import warnings
 from dataclasses import dataclass
 from typing import Any
 
@@ -323,6 +324,12 @@ def make_projected_score_path(
     C_ref: Array | None = None,
 ) -> tuple[Array, dict[str, Any]]:
     """Project scores to a standardized low-dimensional history path."""
+    warnings.warn(
+        "Finite Volterra rank/level features are legacy. The main Hilbert-Volterra target "
+        "uses a kernelized infinite-level Fock Gram matrix and does not construct Phi_t.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     scores = np.asarray(psi, dtype=float)
     if scores.ndim != 2:
         raise ValueError("psi must be a T-by-p array")
@@ -389,6 +396,12 @@ def make_volterra_signature_features(
     pca_dim: int | None = 10,
 ) -> tuple[Array, dict[str, Any]]:
     """Compute truncated exponential Volterra signature-style features."""
+    warnings.warn(
+        "Finite Volterra rank/level features are legacy. The main Hilbert-Volterra target "
+        "uses a kernelized infinite-level Fock Gram matrix and does not construct Phi_t.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     path = np.asarray(x, dtype=float)
     if path.ndim != 2:
         raise ValueError("x must be a T-by-r array")
@@ -511,6 +524,12 @@ def make_volterra_nonlinear_target(
     **kwargs: Any,
 ) -> TargetResult:
     """Nonlinear Volterra-featured HAC OVK target."""
+    warnings.warn(
+        "Finite Volterra rank/level features are legacy. The main Hilbert-Volterra target "
+        "uses a kernelized infinite-level Fock Gram matrix and does not construct Phi_t.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     scores = np.asarray(psi, dtype=float)
     date_series = pd.to_datetime(pd.Series(dates), errors="coerce").reset_index(drop=True)
     if len(date_series) != scores.shape[0]:

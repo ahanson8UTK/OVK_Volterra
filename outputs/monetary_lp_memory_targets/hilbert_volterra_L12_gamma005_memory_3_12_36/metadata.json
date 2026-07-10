@@ -1,0 +1,1302 @@
+{
+  "target_type": "hilbert_volterra",
+  "score_source": "C:\\Users\\ahanson8\\Documents\\OVK_Volterra\\OVK_Volterra\\data_processed\\processed_panel_three_shock_definitions.csv",
+  "used_synthetic_scores": false,
+  "missing_empirical_data": [],
+  "score_matrix_shape": [
+    371,
+    125
+  ],
+  "filtered_score_shape": [
+    359,
+    125
+  ],
+  "date_range": "1993-11-01 to 2023-09-01",
+  "panel_date_range": "1991-10-01 to 2026-04-01",
+  "p": 125,
+  "coordinate_map": [
+    {
+      "coordinate": 0,
+      "horizon_months": 0,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 1,
+      "horizon_months": 0,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 2,
+      "horizon_months": 0,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 3,
+      "horizon_months": 0,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 4,
+      "horizon_months": 0,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 5,
+      "horizon_months": 1,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 6,
+      "horizon_months": 1,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 7,
+      "horizon_months": 1,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 8,
+      "horizon_months": 1,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 9,
+      "horizon_months": 1,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 10,
+      "horizon_months": 2,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 11,
+      "horizon_months": 2,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 12,
+      "horizon_months": 2,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 13,
+      "horizon_months": 2,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 14,
+      "horizon_months": 2,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 15,
+      "horizon_months": 3,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 16,
+      "horizon_months": 3,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 17,
+      "horizon_months": 3,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 18,
+      "horizon_months": 3,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 19,
+      "horizon_months": 3,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 20,
+      "horizon_months": 4,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 21,
+      "horizon_months": 4,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 22,
+      "horizon_months": 4,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 23,
+      "horizon_months": 4,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 24,
+      "horizon_months": 4,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 25,
+      "horizon_months": 5,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 26,
+      "horizon_months": 5,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 27,
+      "horizon_months": 5,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 28,
+      "horizon_months": 5,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 29,
+      "horizon_months": 5,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 30,
+      "horizon_months": 6,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 31,
+      "horizon_months": 6,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 32,
+      "horizon_months": 6,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 33,
+      "horizon_months": 6,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 34,
+      "horizon_months": 6,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 35,
+      "horizon_months": 7,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 36,
+      "horizon_months": 7,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 37,
+      "horizon_months": 7,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 38,
+      "horizon_months": 7,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 39,
+      "horizon_months": 7,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 40,
+      "horizon_months": 8,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 41,
+      "horizon_months": 8,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 42,
+      "horizon_months": 8,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 43,
+      "horizon_months": 8,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 44,
+      "horizon_months": 8,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 45,
+      "horizon_months": 9,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 46,
+      "horizon_months": 9,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 47,
+      "horizon_months": 9,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 48,
+      "horizon_months": 9,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 49,
+      "horizon_months": 9,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 50,
+      "horizon_months": 10,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 51,
+      "horizon_months": 10,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 52,
+      "horizon_months": 10,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 53,
+      "horizon_months": 10,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 54,
+      "horizon_months": 10,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 55,
+      "horizon_months": 11,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 56,
+      "horizon_months": 11,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 57,
+      "horizon_months": 11,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 58,
+      "horizon_months": 11,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 59,
+      "horizon_months": 11,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 60,
+      "horizon_months": 12,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 61,
+      "horizon_months": 12,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 62,
+      "horizon_months": 12,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 63,
+      "horizon_months": 12,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 64,
+      "horizon_months": 12,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 65,
+      "horizon_months": 13,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 66,
+      "horizon_months": 13,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 67,
+      "horizon_months": 13,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 68,
+      "horizon_months": 13,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 69,
+      "horizon_months": 13,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 70,
+      "horizon_months": 14,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 71,
+      "horizon_months": 14,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 72,
+      "horizon_months": 14,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 73,
+      "horizon_months": 14,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 74,
+      "horizon_months": 14,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 75,
+      "horizon_months": 15,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 76,
+      "horizon_months": 15,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 77,
+      "horizon_months": 15,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 78,
+      "horizon_months": 15,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 79,
+      "horizon_months": 15,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 80,
+      "horizon_months": 16,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 81,
+      "horizon_months": 16,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 82,
+      "horizon_months": 16,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 83,
+      "horizon_months": 16,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 84,
+      "horizon_months": 16,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 85,
+      "horizon_months": 17,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 86,
+      "horizon_months": 17,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 87,
+      "horizon_months": 17,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 88,
+      "horizon_months": 17,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 89,
+      "horizon_months": 17,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 90,
+      "horizon_months": 18,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 91,
+      "horizon_months": 18,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 92,
+      "horizon_months": 18,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 93,
+      "horizon_months": 18,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 94,
+      "horizon_months": 18,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 95,
+      "horizon_months": 19,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 96,
+      "horizon_months": 19,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 97,
+      "horizon_months": 19,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 98,
+      "horizon_months": 19,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 99,
+      "horizon_months": 19,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 100,
+      "horizon_months": 20,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 101,
+      "horizon_months": 20,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 102,
+      "horizon_months": 20,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 103,
+      "horizon_months": 20,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 104,
+      "horizon_months": 20,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 105,
+      "horizon_months": 21,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 106,
+      "horizon_months": 21,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 107,
+      "horizon_months": 21,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 108,
+      "horizon_months": 21,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 109,
+      "horizon_months": 21,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 110,
+      "horizon_months": 22,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 111,
+      "horizon_months": 22,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 112,
+      "horizon_months": 22,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 113,
+      "horizon_months": 22,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 114,
+      "horizon_months": 22,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 115,
+      "horizon_months": 23,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 116,
+      "horizon_months": 23,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 117,
+      "horizon_months": 23,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 118,
+      "horizon_months": 23,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 119,
+      "horizon_months": 23,
+      "outcome": "BAA-10Y spread"
+    },
+    {
+      "coordinate": 120,
+      "horizon_months": 24,
+      "outcome": "IP"
+    },
+    {
+      "coordinate": 121,
+      "horizon_months": 24,
+      "outcome": "CPI"
+    },
+    {
+      "coordinate": 122,
+      "horizon_months": 24,
+      "outcome": "Unemployment"
+    },
+    {
+      "coordinate": 123,
+      "horizon_months": 24,
+      "outcome": "2Y yield"
+    },
+    {
+      "coordinate": 124,
+      "horizon_months": 24,
+      "outcome": "BAA-10Y spread"
+    }
+  ],
+  "outcomes": [
+    "IP",
+    "CPI",
+    "Unemployment",
+    "2Y yield",
+    "BAA-10Y spread"
+  ],
+  "outcome_columns": [
+    "ip",
+    "cpi",
+    "unrate",
+    "gs2",
+    "baa10y"
+  ],
+  "horizons": [
+    0,
+    24
+  ],
+  "L": 12,
+  "HAC_lag_L": 12,
+  "time_bandwidth": 0.08,
+  "feature_bandwidth": 0.9313552330304778,
+  "memory_half_lives": [
+    3.0,
+    12.0,
+    36.0
+  ],
+  "memory_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "signature_gamma": 0.05,
+  "base_inner_product_method": "reference_soft",
+  "C_base_trace": 567.59380647362,
+  "score_gram_rho": 4.54085045178896e-08,
+  "score_gram_d_rho": 124.99780586775613,
+  "strict_past": true,
+  "kernel_normalize": true,
+  "raw_kernel_min": 0.9178514129350898,
+  "raw_kernel_max": 3.971951827028591,
+  "raw_kernel_diag_range": [
+    1.0,
+    3.971951827028591
+  ],
+  "normalized_kernel_min": 0.26380414054700346,
+  "normalized_kernel_max": 1.0,
+  "normalized_kernel_diag_range": [
+    1.0,
+    1.0
+  ],
+  "Fock_distance_min_median_max": [
+    0.0,
+    0.9235411264466014,
+    1.2134214926833928
+  ],
+  "rho": 3.4236945433423215e-08,
+  "d_rho": 124.98464065805322,
+  "reference_rule": "grid_induced",
+  "min_ess": 6.58957467842835,
+  "median_ess": 13.076410260684339,
+  "max_ess": 13.5116758052036,
+  "min_normalized_ess": 0.01835536122124889,
+  "median_normalized_ess": 0.03642454111611238,
+  "max_normalized_ess": 0.037636979958784386,
+  "PSD_diagnostics": {
+    "K_by_state": {
+      "n_matrices": 359,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": -2.1084244441353963e-14,
+      "median_min_eigenvalue": 6.099152053857531e-13,
+      "max_min_eigenvalue": 6.2112430338875765e-12,
+      "tol": 1e-08,
+      "ok": true
+    },
+    "C_ref": {
+      "n_matrices": 1,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": 1.1947646227523036e-05,
+      "median_min_eigenvalue": 1.1947646227523036e-05,
+      "max_min_eigenvalue": 1.1947646227523036e-05,
+      "tol": 1e-08,
+      "ok": true
+    }
+  },
+  "kernel_PSD_diagnostics": {
+    "kappa_raw": {
+      "n": 371,
+      "finite": true,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": 1.3895500745111308e-06,
+      "median_eigenvalue": 0.03074703732645756,
+      "max_eigenvalue": 430.9400004367883,
+      "condition_positive_spectrum": 310129162.19546884,
+      "tol": 1e-08,
+      "ok": true
+    },
+    "kappa_norm": {
+      "n": 371,
+      "finite": true,
+      "max_symmetry_error": 0.0,
+      "min_eigenvalue": 6.083959517980479e-07,
+      "median_eigenvalue": 0.01512628554856608,
+      "max_eigenvalue": 221.62818503018968,
+      "condition_positive_spectrum": 364282806.90427303,
+      "tol": 1e-08,
+      "ok": true
+    }
+  },
+  "normalization_diagnostics": {
+    "uniform_state_average_tau_soft": 1.0000000000000278,
+    "uniform_state_average_tau_soft_error": 2.7755575615628914e-14,
+    "mean_K_matches_C_ref_fro_relative": 3.341500087765776e-16
+  },
+  "package_versions": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.3",
+    "matplotlib": "3.10.1",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.8.0"
+  },
+  "target_metadata": {
+    "target_type": "hilbert_volterra",
+    "score_shape": [
+      371,
+      125
+    ],
+    "filtered_score_shape": [
+      359,
+      125
+    ],
+    "reference_rule": "grid_induced",
+    "reference_weights": [
+      0.002794676662130999,
+      0.002820638938440584,
+      0.002810779424298639,
+      0.002791990937271137,
+      0.0027524384004068846,
+      0.0027470583808229345,
+      0.0027492151478249807,
+      0.002769840677998524,
+      0.002795980382268472,
+      0.0028005656902940056,
+      0.0028037702528238067,
+      0.0027899302236732053,
+      0.00279157130665921,
+      0.002775075919010849,
+      0.002767448583273074,
+      0.002776362956511274,
+      0.0028042364640645813,
+      0.0028155875578029124,
+      0.0028094572694625634,
+      0.002790777373107714,
+      0.0027469792524558224,
+      0.0027282023730746483,
+      0.002733410389488583,
+      0.0027673106540286757,
+      0.002802142703425531,
+      0.002817275504559954,
+      0.002817923870807303,
+      0.0028143135104245335,
+      0.002806566613825035,
+      0.0027971903884843005,
+      0.0027936108366758867,
+      0.0028016820395909063,
+      0.00280381641208395,
+      0.002783566715176108,
+      0.0027727759037793594,
+      0.002768815746252549,
+      0.0027924103268474826,
+      0.002794234750175331,
+      0.002777757575290577,
+      0.002778283037157701,
+      0.0027860545523086533,
+      0.002771976065179803,
+      0.0027825006406902203,
+      0.0027688071861635237,
+      0.0027779304588232807,
+      0.002770633985868903,
+      0.0027649782648935086,
+      0.002782387544313663,
+      0.00280841814306809,
+      0.0028229125874505937,
+      0.0028226173095678648,
+      0.0028004181283905506,
+      0.0028039480312267275,
+      0.0027995937289830145,
+      0.0027853074801241036,
+      0.0028015779531345075,
+      0.0028048540222122874,
+      0.002794349401160254,
+      0.002782473995433347,
+      0.002749762347168804,
+      0.002736382873999891,
+      0.0027534206647964058,
+      0.0027797207015615643,
+      0.0027858158551215912,
+      0.0028085883755331197,
+      0.0028000670171455908,
+      0.002783895842652197,
+      0.002760068725273509,
+      0.0027755374160089606,
+      0.0027937578120751485,
+      0.002783862734714397,
+      0.002785674670302779,
+      0.0027650755783975504,
+      0.0027642292976133064,
+      0.0027853418812871797,
+      0.0027892876938344175,
+      0.0028021182433547805,
+      0.002789959559944703,
+      0.0027889164550247056,
+      0.0027974344357846086,
+      0.0028108089124419477,
+      0.002796510342408493,
+      0.002783269602413975,
+      0.0027741438213287565,
+      0.0027536497879488294,
+      0.002743143778853888,
+      0.0027364983828824046,
+      0.002735791858754731,
+      0.0027506815941580787,
+      0.002752323235798032,
+      0.0027616088196972984,
+      0.0027908198396705847,
+      0.0028245025062422643,
+      0.0028347095647599206,
+      0.002828656303494765,
+      0.0028119375056636685,
+      0.002789035198026923,
+      0.0027814822565654365,
+      0.0027780379462443282,
+      0.0027936252930607975,
+      0.002783430817425145,
+      0.002783759100558136,
+      0.0027751722838120964,
+      0.0027643577200374995,
+      0.0027902390725131837,
+      0.002786733759522336,
+      0.0027923935513731197,
+      0.002801511265864452,
+      0.0027951794407194567,
+      0.002815754564270844,
+      0.0028216298847818905,
+      0.002823228818172377,
+      0.0028133669562088025,
+      0.0028084025371906142,
+      0.0027939501904754535,
+      0.002769759943653974,
+      0.0027587102003630614,
+      0.0027893035513536692,
+      0.0027903966558844033,
+      0.00279532301140244,
+      0.0027903963957787016,
+      0.002757664772323361,
+      0.002764079991761949,
+      0.0027566122250228236,
+      0.0027759392062562476,
+      0.002775586570262208,
+      0.0027703616062401144,
+      0.0027776115808409224,
+      0.0027681525584958206,
+      0.002772372736682856,
+      0.0027964209680999955,
+      0.002811602036710965,
+      0.0028110334839920956,
+      0.0027866408483677337,
+      0.0027958830833859976,
+      0.0027904346290591265,
+      0.0027771348349564934,
+      0.002788681211569805,
+      0.0027861394619363906,
+      0.0027627728567650176,
+      0.0027551472910917535,
+      0.00276691285285189,
+      0.002775645152026078,
+      0.0027769075930495738,
+      0.0027983115088830914,
+      0.002812925892259143,
+      0.0028084531456332735,
+      0.002814513921698923,
+      0.002811133188550334,
+      0.00278871306276268,
+      0.00280916314370517,
+      0.002807898638858199,
+      0.002813012570081842,
+      0.002813594013526955,
+      0.0028170286073695102,
+      0.0027934791373398285,
+      0.0027667147816147347,
+      0.002756544482019592,
+      0.0027554416634753107,
+      0.002766146885671099,
+      0.002753020061484697,
+      0.002750735608304339,
+      0.002766772905904762,
+      0.002772596925222634,
+      0.0027854925669521646,
+      0.002807539014235154,
+      0.0028025025958536036,
+      0.0027598822265569845,
+      0.0027530753402122653,
+      0.0027578965242293675,
+      0.0027474900682321226,
+      0.002760980250731917,
+      0.0027831771340889157,
+      0.002785594854232022,
+      0.0027678440161799083,
+      0.002780176520070678,
+      0.0027892146770568615,
+      0.0028000823749920233,
+      0.002788042291249417,
+      0.002774488446930379,
+      0.0027908740869900524,
+      0.0027822477761632967,
+      0.002794963018815762,
+      0.0027916231119398936,
+      0.0027943244056932246,
+      0.0027890361603445137,
+      0.0028057411279939306,
+      0.0028085461709083264,
+      0.0027990558480829836,
+      0.0028079559948443584,
+      0.0028168403080529596,
+      0.0028114085334934235,
+      0.0027943804546746924,
+      0.0027933276107197686,
+      0.002778622599167909,
+      0.002783943120927346,
+      0.00276301192726865,
+      0.0027773329624974146,
+      0.0027924438521112226,
+      0.0027895677390571256,
+      0.002789036244008629,
+      0.002788426744817305,
+      0.0027684980314118634,
+      0.002761512176936084,
+      0.0027804606484885313,
+      0.0027729724026105632,
+      0.0027832268477803444,
+      0.0027765242140122986,
+      0.002789470192331182,
+      0.0028032566471592624,
+      0.0028052563692980577,
+      0.002813582495583116,
+      0.002810925675148979,
+      0.0027865170060722396,
+      0.0027679939070352506,
+      0.002751666331932374,
+      0.002768229706220321,
+      0.0027809229566280484,
+      0.0027890881384856794,
+      0.002787255808905,
+      0.0027748645344792093,
+      0.002756658012311507,
+      0.0027679037809923914,
+      0.0027878009813370984,
+      0.0027816471983372728,
+      0.0027946029209350103,
+      0.0028008581767889045,
+      0.002805924249204956,
+      0.0027935306010360367,
+      0.0028038626141433957,
+      0.002800216145546345,
+      0.0027996897801971735,
+      0.002801319424791757,
+      0.002798354689614559,
+      0.0027987931159347904,
+      0.002788849794293378,
+      0.002785879796268308,
+      0.0027647367821839355,
+      0.0027589894395657413,
+      0.002766790256369941,
+      0.0027770601966822755,
+      0.0027933742898176564,
+      0.0027993184060503746,
+      0.0028018114933089115,
+      0.002769700694421864,
+      0.0027741921042958024,
+      0.002781715740663419,
+      0.002798510183552627,
+      0.002807523176431457,
+      0.002806897034126484,
+      0.002800496924911752,
+      0.0027929102745735536,
+      0.0027772478338707607,
+      0.0027607537549311804,
+      0.0027521794662688833,
+      0.0027654358918281093,
+      0.0027624694825873456,
+      0.0027670427273877416,
+      0.002781934406306731,
+      0.0028029591458523543,
+      0.0028068455144730975,
+      0.0027969802146085064,
+      0.002771181315496765,
+      0.0027775603600888104,
+      0.0027591826451101855,
+      0.0027838796149044706,
+      0.002782233571373924,
+      0.0027756432666524466,
+      0.0027845312213058467,
+      0.0027786472843735486,
+      0.0027947188894577517,
+      0.002787938095846804,
+      0.00280352981076012,
+      0.002804382739140118,
+      0.002792936802610882,
+      0.002775038907785104,
+      0.0027861928319822685,
+      0.002781514430097613,
+      0.002772882551719352,
+      0.002793200757204888,
+      0.0027976667877642465,
+      0.0027875512612148103,
+      0.0028015661416659807,
+      0.0027989136565427187,
+      0.002815471569319393,
+      0.002811970695620351,
+      0.002814204915078261,
+      0.002821268351903245,
+      0.0028283315319500646,
+      0.0028288129578213656,
+      0.0028293751132073275,
+      0.002817607245809576,
+      0.002791063094708575,
+      0.0027522052963818862,
+      0.0027339242532970565,
+      0.0027400258562769865,
+      0.002756100441643993,
+      0.0027712603899426504,
+      0.002772852234460194,
+      0.002767379170162875,
+      0.0027770676203679127,
+      0.0027917706009641698,
+      0.002766988078318136,
+      0.00277036786022873,
+      0.0027725494307372133,
+      0.002774140923919202,
+      0.0027865526394018703,
+      0.002762104892508724,
+      0.002757387936792199,
+      0.0027668618859677473,
+      0.0027692520078162323,
+      0.0027474589982805176,
+      0.0027407891517874667,
+      0.002738077836298562,
+      0.002740601673393217,
+      0.0027235190214417782,
+      0.0027235391127142143,
+      0.002737643161989159,
+      0.0027805697661316925,
+      0.0028183756011318293,
+      0.0028367576691677664,
+      0.0028439401761995043,
+      0.002844822796477182,
+      0.0028413505819089705,
+      0.002839248321581589,
+      0.002836309285284738,
+      0.0028333386268563,
+      0.0028298017128849835,
+      0.0028255486132425993,
+      0.0028179964674079753,
+      0.0028083141198216154,
+      0.002786770398059046,
+      0.002796199907352625,
+      0.002794286831435275,
+      0.0027728800658710392,
+      0.0027557946961764344,
+      0.0027581024594925045,
+      0.0027494817660893177,
+      0.0027819691612451986,
+      0.002794999383750769,
+      0.002789335240242513,
+      0.002767499301370587,
+      0.002757209503524754,
+      0.002756347993273565,
+      0.0027724055661306813,
+      0.002781236699854136,
+      0.002791392038485123,
+      0.002772463311177075,
+      0.00278603834966078,
+      0.002772051292728563,
+      0.002789740071265836,
+      0.0027947672694421657,
+      0.0027877277737396408,
+      0.002766523593567933,
+      0.002772092741428456,
+      0.0027822396495860518,
+      0.002788745094040369,
+      0.002801638255150339,
+      0.0028255866662237664
+    ],
+    "base_score_gram": {
+      "base_inner": "reference_soft",
+      "score_shape": [
+        371,
+        125
+      ],
+      "C_base_trace": 567.59380647362,
+      "C_base_min_eigenvalue": 0.0001447903941987474,
+      "rho": 4.54085045178896e-08,
+      "d_rho": 124.99780586775613,
+      "base_gram_scale_divisor": 0.77597337938504,
+      "base_gram_diag_min_before_scale": 6.038820669250514e-05,
+      "base_gram_diag_median_positive_before_scale": 0.77597337938504,
+      "base_gram_diag_median_positive_after_scale": 1.0,
+      "base_gram_psd": {
+        "n": 371,
+        "finite": true,
+        "max_symmetry_error": 0.0,
+        "min_eigenvalue": -3.8612789540007165e-15,
+        "median_eigenvalue": 7.670999483018258e-16,
+        "max_eigenvalue": 3.8249406189045225,
+        "condition_positive_spectrum": 1.0003136153183991,
+        "tol": 1e-08,
+        "ok": true
+      }
+    },
+    "hilbert_volterra_kernel": {
+      "target_kernel": "infinite_level_hilbert_fock_volterra",
+      "strict_past": true,
+      "normalize_kernel": true,
+      "signature_gamma": 0.05,
+      "raw_symmetry_error_before_symmetrization": 3.552713678800501e-15,
+      "raw_kernel_min": 0.9178514129350898,
+      "raw_kernel_max": 3.971951827028591,
+      "raw_kernel_diag_min": 1.0,
+      "raw_kernel_diag_max": 3.971951827028591,
+      "normalized_kernel_min": 0.26380414054700346,
+      "normalized_kernel_max": 1.0,
+      "normalized_kernel_diag_min": 1.0,
+      "normalized_kernel_diag_max": 1.0,
+      "distance_min": 0.0,
+      "distance_median_positive": 0.9235411264466014,
+      "distance_max": 1.2134214926833928,
+      "distance_roundoff_clipped_count": 0,
+      "raw_kernel_psd": {
+        "n": 371,
+        "finite": true,
+        "max_symmetry_error": 0.0,
+        "min_eigenvalue": 1.3895500745111308e-06,
+        "median_eigenvalue": 0.03074703732645756,
+        "max_eigenvalue": 430.9400004367883,
+        "condition_positive_spectrum": 310129162.19546884,
+        "tol": 1e-08,
+        "ok": true
+      },
+      "normalized_kernel_psd": {
+        "n": 371,
+        "finite": true,
+        "max_symmetry_error": 0.0,
+        "min_eigenvalue": 6.083959517980479e-07,
+        "median_eigenvalue": 0.01512628554856608,
+        "max_eigenvalue": 221.62818503018968,
+        "condition_positive_spectrum": 364282806.90427303,
+        "tol": 1e-08,
+        "ok": true
+      },
+      "memory_half_lives": [
+        3.0,
+        12.0,
+        36.0
+      ],
+      "memory_decays": [
+        0.7937005259840998,
+        0.9438743126816935,
+        0.980930087668915
+      ],
+      "memory_weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "memory_weights_rule": "equal"
+    },
+    "hilbert_volterra_weights": {
+      "base_time_kernel": "graph_resolvent",
+      "time_bandwidth": 0.08,
+      "feature_bandwidth": 0.9313552330304778,
+      "feature_bandwidth_rule": "median_positive_distance",
+      "ESS_min": 6.58957467842835,
+      "ESS_median": 13.076410260684339,
+      "ESS_max": 13.5116758052036,
+      "normalized_ESS_min": 0.018355361221248884,
+      "normalized_ESS_median": 0.03642454111611237,
+      "normalized_ESS_max": 0.0376369799587844,
+      "row_sum_error": 4.440892098500626e-16,
+      "min_weight": 4.566062029974286e-45,
+      "max_weight": 0.26155687330315464
+    },
+    "kappa_raw_shape": [
+      359,
+      359
+    ],
+    "kappa_norm_shape": [
+      359,
+      359
+    ],
+    "moment_psd_diagnostics": {
+      "K_by_state": {
+        "n_matrices": 359,
+        "max_symmetry_error": 0.0,
+        "min_eigenvalue": -2.1084244441353963e-14,
+        "median_min_eigenvalue": 6.099152053857531e-13,
+        "ok": true
+      },
+      "C_ref": {
+        "max_symmetry_error": 0.0,
+        "min_eigenvalue": 1.1947646227523036e-05,
+        "ok": true
+      },
+      "tol": 1e-08
+    },
+    "L": 12,
+    "filter": "bartlett_factor",
+    "filter_weights": [
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146,
+      0.2773500981126146
+    ],
+    "drop_initial": true,
+    "boundary_renormalize": false,
+    "valid_count": 359,
+    "kappa_raw": "saved separately as kappa_raw.npy",
+    "kappa_norm": "saved separately as kappa_norm.npy",
+    "fock_distance": "saved separately as fock_distance.npy"
+  },
+  "score_metadata": {
+    "shock_col": "MP_median_fallback",
+    "cbi_col": "CBI_median_fallback",
+    "sigma_m2": 0.6081419151729581,
+    "valid_idx_min": 13,
+    "valid_idx_max": 383
+  },
+  "bootstrap": {
+    "draws": 0,
+    "block_length": 18,
+    "workers_requested": 0,
+    "workers_resolved": 1,
+    "chunk_size_requested": 0,
+    "parallel_backend": "serial",
+    "indices_precomputed": false,
+    "paired_across_targets": false,
+    "draw_plan_digest": null,
+    "draw_indices_file": null
+  },
+  "note": "This target is a diagnostic moment field, not a time-varying causal effect."
+}

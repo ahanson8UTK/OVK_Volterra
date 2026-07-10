@@ -1,6 +1,7 @@
 {
   "target_type": "diagonal_old",
   "score_source": "C:\\Users\\ahanson8\\Documents\\OVK_Volterra\\OVK_Volterra\\data_processed\\processed_panel_three_shock_definitions.csv",
+  "used_synthetic_scores": false,
   "missing_empirical_data": [],
   "score_matrix_shape": [
     371,
@@ -659,12 +660,35 @@
     24
   ],
   "L": 12,
+  "HAC_lag_L": 12,
   "time_bandwidth": 0.08,
   "feature_bandwidth": null,
-  "volterra_half_lives": null,
-  "volterra_level": null,
-  "projection_rank_r": null,
-  "pca_feature_dimension": null,
+  "memory_half_lives": null,
+  "memory_weights": null,
+  "signature_gamma": null,
+  "base_inner_product_method": null,
+  "C_base_trace": null,
+  "score_gram_rho": null,
+  "score_gram_d_rho": null,
+  "strict_past": null,
+  "kernel_normalize": null,
+  "raw_kernel_min": null,
+  "raw_kernel_max": null,
+  "raw_kernel_diag_range": [
+    null,
+    null
+  ],
+  "normalized_kernel_min": null,
+  "normalized_kernel_max": null,
+  "normalized_kernel_diag_range": [
+    null,
+    null
+  ],
+  "Fock_distance_min_median_max": [
+    null,
+    null,
+    null
+  ],
   "rho": 4.5408504517889596e-08,
   "d_rho": 124.99780586775613,
   "reference_rule": "empirical",
@@ -693,6 +717,10 @@
       "tol": 1e-08,
       "ok": true
     }
+  },
+  "kernel_PSD_diagnostics": {
+    "kappa_raw": null,
+    "kappa_norm": null
   },
   "normalization_diagnostics": {
     "uniform_state_average_tau_soft": 0.9999999999999661,
@@ -1091,6 +1119,18 @@
     "sigma_m2": 0.6081419151729581,
     "valid_idx_min": 13,
     "valid_idx_max": 383
+  },
+  "bootstrap": {
+    "draws": 0,
+    "block_length": 18,
+    "workers_requested": 0,
+    "workers_resolved": 1,
+    "chunk_size_requested": 0,
+    "parallel_backend": "serial",
+    "indices_precomputed": false,
+    "paired_across_targets": false,
+    "draw_plan_digest": null,
+    "draw_indices_file": null
   },
   "note": "This target is a diagnostic moment field, not a time-varying causal effect."
 }
